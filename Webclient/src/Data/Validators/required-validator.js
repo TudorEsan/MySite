@@ -1,0 +1,1 @@
+export const requiredValidator = (value) => !!value? true: false
