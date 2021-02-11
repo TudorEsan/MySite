@@ -63,6 +63,9 @@ const CryptoPrice = styled(BodyIntro)`
     font-size: 20px;
     line-height: 140%;
     text-align: right;
+    @media(max-width: 444px) {
+        font-size: 17px;
+    }
 `
 
 const CryptoName = styled(BodyIntro)`
@@ -71,6 +74,9 @@ const CryptoName = styled(BodyIntro)`
     font-size: 24px;
     line-height: 29px;
     text-align: left;
+    @media(max-width: 444px) {
+        font-size: 17px;
+    }
 
 `
 
@@ -100,8 +106,9 @@ const Card = styled.div`
     width: 80%;
     max-width: 900px;
     margin: 0 auto;
-
-
+    @media(max-width: 444px) {
+        padding: 30px;
+    }
 `
 
 const ButtonContainer = styled.div`
@@ -110,6 +117,7 @@ const ButtonContainer = styled.div`
     align-items: center;
     grid-auto-flow: column;
     grid-gap: 30px;
+    margin-bottom: 15px;
 `
 
 const ButtonLabel = styled(BodyIntro)`
@@ -118,6 +126,10 @@ const ButtonLabel = styled(BodyIntro)`
     font-size: 24px;
     line-height: 29px;
     text-align: center;
+    cursor: pointer;
+    @media(max-width: 444px) {
+        font-size: 17px;
+    }
 `
 
 const Button = styled.div`
@@ -125,17 +137,28 @@ const Button = styled.div`
     background: #229AD2;
     border-radius: 50px;
     padding: 5px 15px;
+    transition: 0.3s ease-out;
+    :hover {
+        transform: scale(1.05);
+    }
 ` 
 
 const Container2 = styled.div`
     display: grid;
     grid-auto-flow: row;
     width: auto;
+    margin-top: 50px;
+    @media(max-width:444px) {
+        margin: 0;
+    }
 ` 
 
 const Ilustration = styled.img`
     margin: auto;
     max-width: 80%;
+    @media(max-width:444px) {
+        margin: 0 auto;
+    }
 `
 
 const Title = styled(H2)`
@@ -149,6 +172,7 @@ const Container = styled.div`
     grid-auto-flow: column;
     grid-template-columns: 50% 50%;
     @media(max-width: 444px) {
+        height: 80vh;
         grid-auto-flow: row;
         grid-template-rows: 50% 50%;
         grid-template-columns: 100%;
@@ -163,4 +187,7 @@ const TitleContainer = styled.div`
     background-size: contain;
     align-items: center;
     justify-content: center;
+    @media(max-width:444px) {
+        height: 50vh;
+    }
 ` 

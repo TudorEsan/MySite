@@ -27,11 +27,17 @@ function MyNavbar({ history }) {
 			return 'black';
 		return 'white';
 	}
+	const isDark = () => {
+		const { pathname } = history.location;
+		if (pathname == '/crypto')
+			return true;
+		return false;
+	}
 
 	return (
 		<>
 			<MenuWrapper>
-				<Logo src="./Logo.svg" color={ getColor() }/>
+				<Logo src={isDark()?'/Logo_dark.svg' : 'Logo.svg'} color={ getColor() }/>
 				<LabelWrapper items={navbarData.length}>
 					{navbarData.map(elem => (
 						<MenuLabel color={ getColor() } underline={shouldUnderline(elem.link)} onClick={(e) => navigate(e, elem.link)}>{ elem.title }</MenuLabel>
@@ -42,7 +48,7 @@ function MyNavbar({ history }) {
 					<Line color={ getColor() }/>
 				</StyledBurger>
 			</MenuWrapper> 
-			<MenuTooltip isOpen={isOpen} />
+			<MenuTooltip isOpen={isOpen} setIsOpen={setIsOpen}/>
 		</>
 	)
 }
@@ -84,16 +90,16 @@ const MenuWrapper = styled.div`
 
 const MenuLabel = styled(BodyIntro)`
 	cursor: pointer; 
-	color: ${props => (props.color === 'white') ? 'white' : 'black'};
+	color: ${props => (props.color === 'white') ? 'white' : '#1D3557'};
 	font-weight: bold;
 	width: auto;
 	height: auto;
 	text-decoration: ${props => (props.underline ? 'underline' : "none")};
-	text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+	text-shadow: ${props => (props.color === 'white') ? '0px 5px 5px rgba(0, 0, 0, 0.25)' : '#1D3557'};
 	transition: 0.3s ease-out;
 	:hover {
 		transform: scale(1.1);
-		text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+
 	}
 `
 
