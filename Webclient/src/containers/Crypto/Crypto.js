@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { cryptoAmount } from '../../Data/cryptoData';
 import { BodyIntro, BodyMain, H1, H2, H3, MediumText } from '../../styles/TextStyles';
-
+import { Dialog } from '../../Components/Dialog'
 function Crypto() {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const addCrypto = () => {
+        setIsOpen(true);
+    }
+
+    const cancel = () => {
+        setIsOpen(false);
+    }
+
+    const detectEsc = (e) => {
+        if (e.keyCode == 27) {
+            setIsOpen(false);
+            console.log('afa')
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("keydown", detectEsc, false)
+        return () => {
+            document.removeEventListener("keydown", detectEsc, false)
+        }
+    }, [])
+
     return (
         <>
             <Container>
@@ -15,7 +40,7 @@ function Crypto() {
             <Container2>
                 <ButtonContainer>
                     <Button>
-                        <ButtonLabel>Add Crypto</ButtonLabel>
+                        <ButtonLabel onClick={() => {addCrypto()}}>Add Crypto</ButtonLabel>
                     </Button>
                     <Button>
                         <ButtonLabel>Reacurring Buy</ButtonLabel> 
@@ -25,6 +50,29 @@ function Crypto() {
                     <Heading>Overview</Heading>
                     <Amount>239.23 $</Amount>
                     <Percentage percentage={34}>+34%</Percentage>
+                    <Dialog isOpen={isOpen}>
+                        <DialogTitle>Add Crypto</DialogTitle>
+                        <DialogContainer>
+                            <DialogLabel>Type</DialogLabel>
+                            <Input placeholder='Type'/>
+                            <DialogLabel>Amount</DialogLabel>
+                            <InputContainer>
+                                <Input placeholder='Amount' />
+                            </InputContainer>
+                            <DialogLabel>Date</DialogLabel>
+                            <Input placeholder="Date" />
+                        </DialogContainer>
+                        <ButtonContainer2>
+                            <DialogButton>
+                                <DialogButtonLabel>
+                                Add Crypto
+                                </DialogButtonLabel>
+                            </DialogButton>
+                            <DialogButtonLabel2 onClick={() => { cancel() }}>
+                                Cancel
+                            </DialogButtonLabel2>
+                            </ButtonContainer2> 
+                    </Dialog>
                     {cryptoAmount.map((elem, index) => (
                         <CryptoContainer key={index}>
                             <CryptoImg src={elem.img} />
@@ -40,6 +88,88 @@ function Crypto() {
 }
 
 export default Crypto;
+
+const DialogButtonLabel = styled.p`
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 140%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+
+`
+const DialogButtonLabel2 = styled.p`
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 140%;
+    color: #868686;
+    text-align: center;
+    cursor: pointer;
+    :hover {
+        text-decoration-line: underline;
+    }
+`
+
+const ButtonContainer2 = styled.div`
+    display: grid;
+    grid-auto-flow: row;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 10px;
+`
+
+const InputContainer = styled.div`
+    position: relative;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    :before {
+        position: absolute;
+        top: 50%;
+        content:"€";
+        color: #A3A7AE;
+        transform: translate(-50%, -50%);
+        right: 0px;
+        font-size: 18px;
+    }
+`
+
+const DialogLabel = styled(H3)`
+    text-align: left;
+    font-size: 18px;
+    padding: 10px;
+`
+
+const DialogContainer = styled.div`
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    // justify-items: center;
+    grid-gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+`
+
+const Input = styled.input`
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 10px;
+  margin: 10px 0px 10px 10px;
+  background: #DADFE9;
+  border: none;
+  border-radius: 3px;
+  :placeholder {
+    color: #A3A7AE;
+  }
+`;
+
+const DialogTitle = styled(H2)`
+    text-align: center;
+    margin-bottom: 20px;
+`
 
 const Divider = styled.div`
 `
@@ -141,7 +271,11 @@ const Button = styled.div`
     :hover {
         transform: scale(1.05);
     }
-` 
+`
+
+const DialogButton = styled(Button)`
+    transition: 0s;
+`
 
 const Container2 = styled.div`
     display: grid;
