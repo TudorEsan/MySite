@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { H1, BodyMain, MediumText, SmallText, H2, BodyIntro } from '../../styles/TextStyles';
 import { Card } from '../../styles/CardStyles';
 import styled from 'styled-components'
-import MenuTooltip from '../../components/MenuTooltip';
 
 function Home() {
 

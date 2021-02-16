@@ -3,12 +3,17 @@ import styled from 'styled-components';
 import { cryptoAmount } from '../../Data/cryptoData';
 import { BodyIntro, BodyMain, H1, H2, H3, MediumText } from '../../styles/TextStyles';
 import { Dialog } from '../../Components/Dialog'
+import { getCryptoData } from '../../Api/Crypto'
+ 
 function Crypto() {
 
     const [isOpen, setIsOpen] = useState(false);
+    const [crypto, setCrypto] = useState(false);
 
-    const addCrypto = () => {
+    const addCrypto = async () => {
         setIsOpen(true);
+        console.log('sdf')
+        await getCryptoData();
     }
 
     const cancel = () => {
@@ -22,72 +27,133 @@ function Crypto() {
         }
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         document.addEventListener("keydown", detectEsc, false)
+        const data = await getCryptoData();
+        setCrypto(data);
         return () => {
             document.removeEventListener("keydown", detectEsc, false)
         }
     }, [])
-
-    return (
-        <>
-            <Container>
-                <TitleContainer>
-                    <Title>My <br/>Cryptocurencies</Title>
-                </TitleContainer>
-                <Ilustration src='CryptoIlustration.svg'/>
-            </Container>
-            <Container2>
-                <ButtonContainer>
-                    <Button>
-                        <ButtonLabel onClick={() => {addCrypto()}}>Add Crypto</ButtonLabel>
-                    </Button>
-                    <Button>
-                        <ButtonLabel>Reacurring Buy</ButtonLabel> 
-                    </Button>
-                </ButtonContainer>
-                <Card>
-                    <Heading>Overview</Heading>
-                    <Amount>239.23 $</Amount>
-                    <Percentage percentage={34}>+34%</Percentage>
-                    <Dialog isOpen={isOpen}>
-                        <DialogTitle>Add Crypto</DialogTitle>
-                        <DialogContainer>
-                            <DialogLabel>Type</DialogLabel>
-                            <Input placeholder='Type'/>
-                            <DialogLabel>Amount</DialogLabel>
-                            <InputContainer>
-                                <Input placeholder='Amount' />
-                            </InputContainer>
-                            <DialogLabel>Date</DialogLabel>
-                            <Input placeholder="Date" />
-                        </DialogContainer>
-                        <ButtonContainer2>
-                            <DialogButton>
-                                <DialogButtonLabel>
-                                Add Crypto
-                                </DialogButtonLabel>
-                            </DialogButton>
-                            <DialogButtonLabel2 onClick={() => { cancel() }}>
-                                Cancel
-                            </DialogButtonLabel2>
-                            </ButtonContainer2> 
-                    </Dialog>
-                    {cryptoAmount.map((elem, index) => (
-                        <CryptoContainer key={index}>
-                            <CryptoImg src={elem.img} />
-                            <CryptoName>{elem.name}</CryptoName>
-                            <Divider></Divider>
-                            <CryptoPrice>{elem.amount}</CryptoPrice>
-                        </CryptoContainer>
-                    ))}
-                </Card>
-            </Container2> 
-        </>
-    )
+    if (crypto !== false) {
+        return (
+            <>
+                <Container>
+                    <TitleContainer>
+                        <Title>My <br/>Cryptocurencies</Title>
+                    </TitleContainer>
+                    <Ilustration src='CryptoIlustration.svg'/>
+                </Container>
+                <Container2>
+                    <ButtonContainer>
+                        <Button>
+                            <ButtonLabel onClick={() => {addCrypto()}}>Add Crypto</ButtonLabel>
+                        </Button>
+                        <Button>
+                            <ButtonLabel>Reacurring Buy</ButtonLabel> 
+                        </Button>
+                    </ButtonContainer>
+                    <Card>
+                        <Heading>Overview</Heading>
+                        <Amount>{crypto.actualAmount} USD</Amount>
+                        <Percentage percentage={crypto.profit}>{crypto.profit} USD {crypto.totalPercentageGrowth}%</Percentage>
+                        <Dialog isOpen={isOpen}>
+                            <DialogTitle>Add Crypto</DialogTitle>
+                            <DialogContainer>
+                                <DialogLabel>Type</DialogLabel>
+                                <Input placeholder='Type'/>
+                                <DialogLabel>Amount</DialogLabel>
+                                <InputContainer>
+                                    <Input placeholder='Amount' />
+                                </InputContainer>
+                                <DialogLabel>Date</DialogLabel>
+                                <Input placeholder="Date" />
+                            </DialogContainer>
+                            <ButtonContainer2>
+                                <DialogButton>
+                                    <DialogButtonLabel>
+                                    Add Crypto
+                                    </DialogButtonLabel>
+                                </DialogButton>
+                                <DialogButtonLabel2 onClick={() => { cancel() }}>
+                                    Cancel
+                                </DialogButtonLabel2>
+                                </ButtonContainer2> 
+                        </Dialog>
+                        {crypto.cryptoAmount.map((elem, index) => {
+                            if (elem.amount !== 0) {
+                                return (
+                                    <CryptoContainer key={index}>
+                                        <CryptoImg src={elem.icon} />
+                                        <CryptoName>{elem.name}</CryptoName>
+                                        <Divider></Divider>
+                                        <PriceContainer>
+                                            <CryptoPrice>{elem.amount} $</CryptoPrice>
+                                            <SmallPercentage percentage={elem.profit}>{ Math.abs(elem.growth) }%</SmallPercentage>
+                                        </PriceContainer>
+                                    </CryptoContainer>
+                                )
+                            }
+                        })
+                        }
+                    </Card>
+                    <Card>
+                        <Heading>Transactions</Heading>
+                        {crypto.transactions.map((elem, index) => (
+                                    <CryptoContainer key={index}>
+                                        <CryptoImg src={elem.icon} />
+                                        <CryptoName>{elem.type}</CryptoName>
+                                <Divider></Divider>
+                                <PriceContainer>
+                                    <CryptoPrice>{elem.bought} $</CryptoPrice>
+                                    <BuyingDate>{elem.date}</BuyingDate>
+                                </PriceContainer>
+                                    </CryptoContainer>
+                                ))}
+                    </Card>
+                </Container2> 
+            </>
+        )
+    } else {
+        return (
+            <p>Loading...</p>
+        )
+    }
+    
 }
 
 export default Crypto;
+
+const BuyingDate = styled(MediumText)`
+    text-align: center;
+    font-size: 15px;
+    color: gray;
+`
+
+const Percentage = styled(MediumText)`
+    text-align: center;
+    color: ${props => (props.percentage >= 0)? 'green' : 'red'};
+`
+
+const SmallPercentage = styled(Percentage)`
+    position: relative;
+    font-size: 14px;
+    :before {
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        content: ${props => (props.percentage >= 0)? "url('/green_arrow.svg')" : "url('/red_arrow.svg')"};
+        transform: translate(-50%, -50%);
+    }
+
+`
+
+const PriceContainer = styled.div`
+    display: grid;
+    grid-gap: 5px;
+    justify-content: center;
+`
+
 
 const DialogButtonLabel = styled.p`
     font-style: normal;
@@ -182,17 +248,12 @@ const Amount = styled(BodyMain)`
     text-align: center;
 `
 
-const Percentage = styled(MediumText)`
-    text-align: center;
-    color: ${props => (props.percentage >= 0)? 'green' : 'red'};
-`
-
 const CryptoPrice = styled(BodyIntro)`
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
     line-height: 140%;
-    text-align: right;
+    text-align: center;
     @media(max-width: 444px) {
         font-size: 17px;
     }
@@ -211,7 +272,9 @@ const CryptoName = styled(BodyIntro)`
 `
 
 const CryptoImg = styled.img`
-    object-fit: cover;
+    object-fit: contain;
+    max-height: 60px;
+    max-width: 60px;
 `
 
 const CryptoContainer = styled.div`
@@ -235,7 +298,7 @@ const Card = styled.div`
     align-items: center;
     width: 80%;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 0 auto 100px;
     @media(max-width: 444px) {
         padding: 30px;
     }

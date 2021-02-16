@@ -6,7 +6,7 @@ const { getFormatedDate2 } = require('../formaters/dateFormater');
 const CryptoSchema = mongoose.Schema({
     type: {
         type: String,
-        enum: [ 'Ether', "Bitcoin"],
+        enum: [ 'Ether', "Bitcoin", "Stellar"],
         required: true
     },
     cryptoBuyingPrice: {

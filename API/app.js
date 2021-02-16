@@ -12,9 +12,10 @@ const getRoute = require('./routes/privateRoute')
 const verifyToken = require('./routes/verifyToken');
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
+    poolSize: 10,
     useUnifiedTopology: true
     },
-    ()=> {
+    () => {
         console.log("Connected to Database");
 })
 

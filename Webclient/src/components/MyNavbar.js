@@ -11,7 +11,6 @@ function MyNavbar({ history }) {
 
 	const shouldUnderline = (link) => {
 		const { pathname } = history.location
-		console.log(link, pathname);
 		return link == pathname;
 	}
 	

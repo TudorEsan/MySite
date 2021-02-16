@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
-import Contact from '../containers/Contact/Contact'
-import Home from '../containers/Home/Home'
-import Crypto from '../containers/Crypto/Crypto'
+import Contact from '../Containers/Contact/Contact'
+import Home from '../Containers/Home/Home'
+import Crypto from '../Containers/Crypto/Crypto'
 
 function Routes() {
     return (
