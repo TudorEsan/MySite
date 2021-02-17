@@ -116,7 +116,9 @@ function Crypto() {
         )
     } else {
         return (
-            <p>Loading...</p>
+            <>
+                <p>Loading...</p>
+            </>
         )
     }
     

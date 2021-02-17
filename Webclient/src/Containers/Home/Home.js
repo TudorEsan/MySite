@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { H1, BodyMain, MediumText, SmallText, H2, BodyIntro } from '../../styles/TextStyles';
 import { Card } from '../../styles/CardStyles';
 import styled from 'styled-components'
+import { theme } from '../../Api/colorScheeme';
 
 function Home() {
 
@@ -10,10 +11,10 @@ function Home() {
         <>
             <Container>
                 <ComputerWork src="/computer-work.svg" />
-                <Title>Hi.<br/>Welcome to<br/>My Website!</Title>
+                <Title theme={theme}>Hi.<br/>Welcome to<br/>My Website!</Title>
             </Container>
             <ContentWrapper>
-                    <InfoCard>
+                    <InfoCard theme={theme}>
                         <DescriptionWrapper>
                             <ShortDescription>
                                 <Avatar />
@@ -168,6 +169,10 @@ const Container = styled.div`
         flex-direction: column;
         height: 80vh;
     }
+    @media (prefers-color-scheme: dark) {
+        background: url('/Vector1_dark.svg') top center no-repeat;
+        background-size: cover;
+    }
 `
 
 const Container2 = styled.div`
@@ -188,6 +193,9 @@ const Title = styled(H1)`
     margin-top: 40px;
     color: white;
     text-align: center;
+    @media (prefers-color-scheme: dark) {
+        color: ${props => props.theme.dark.titleColor};
+    }
     @media(max-width: 414px) {
         font-size: 40px;
         line-height: 41px;
@@ -238,6 +246,9 @@ const MyDescription = styled(BodyMain)`
 const InfoCard = styled(Card)`
     width: 100%;
     padding: 30px;
+    @media (prefers-color-scheme: dark) {
+        background: {blue};
+    }
 `
 
 const ContentWrapper = styled.div`
