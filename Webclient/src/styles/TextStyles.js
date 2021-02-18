@@ -31,6 +31,9 @@ export const MediumText = styled.p`
   font-weight: normal;
   font-size: 17px;
   line-height: 130%;
+  @media (prefers-color-scheme: dark) {
+        color: ${ props => props.theme.dark.primaryTextColor };
+  }
 `
 
 export const Caption = styled.p`
@@ -50,6 +53,9 @@ export const SmallText = styled.p`
   font-weight: normal;
   font-size: 13px;
   line-height: 130%;
+  @media (prefers-color-scheme: dark) {
+        color: ${ props => props.theme.dark.primaryTextColor };
+    }
 `
 
 export const SmallText2 = styled.p`

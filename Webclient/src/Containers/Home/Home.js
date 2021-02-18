@@ -18,14 +18,14 @@ function Home() {
                         <DescriptionWrapper>
                             <ShortDescription>
                                 <Avatar />
-                                <MediumText>
+                                <MediumText theme={theme}>
                                     Tudor Esan 
                                 </MediumText>
-                                <SmallText> 
+                                <SmallText theme={theme}> 
                                     Sibiu, Romania
                                 </SmallText>
                             </ShortDescription>
-                            <MyDescription>
+                            <MyDescription theme={theme}>
                                 Passionate about programming and ways in which technology can improve 
                                 our everyday lives. I find Computer Science and Artificial Intelligence 
                                 interesting, since abstracting real world problems into code is very 
@@ -83,6 +83,9 @@ const Icon = styled.div`
     @media(max-width: 444px) { 
         width: 50px;
         height: 50px;
+    }
+    @media(prefers-color-scheme: dark) {
+        background: linear-gradient(0deg, #374073, #374073), #18204D;
     }
 `
 
@@ -240,6 +243,10 @@ const MyDescription = styled(BodyMain)`
         line-height: 140%;
         max-width: 100%;
     }
+    @media (prefers-color-scheme: dark) {
+        color: ${ props => props.theme.dark.primaryTextColor };
+    }
+
 `
 
 
@@ -247,7 +254,7 @@ const InfoCard = styled(Card)`
     width: 100%;
     padding: 30px;
     @media (prefers-color-scheme: dark) {
-        background: {blue};
+        background: linear-gradient(0deg, #374073, #374073), #18204D;
     }
 `
 
