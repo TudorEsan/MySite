@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const AppContext = React.createContext()
+const ThemeContext = React.createContext()
 
-export const Context = () => {
+export const Context = ({ children }) => {
+    
+    const [colors, setColors] = useState();
+    
     return (
-        <div>
-            
-        </div>
+        <ThemeContext.Provider value={}>
+            { children }
+        </ThemeContext.Provider>
     )
 }
