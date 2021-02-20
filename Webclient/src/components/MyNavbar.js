@@ -11,7 +11,6 @@ function MyNavbar({ history }) {
 
 	const shouldUnderline = (link) => {
 		const { pathname } = history.location
-		console.log(link, pathname);
 		return link == pathname;
 	}
 	
@@ -23,7 +22,7 @@ function MyNavbar({ history }) {
 
 	const getColor = () => {
 		const { pathname } = history.location;
-		if (pathname == '/crypto')
+		if (pathname == 'crypto/')
 			return 'black';
 		return 'white';
 	}
@@ -99,7 +98,9 @@ const MenuLabel = styled(BodyIntro)`
 	transition: 0.3s ease-out;
 	:hover {
 		transform: scale(1.1);
-
+	}
+	@media(prefers-color-scheme: dark) {
+		color: ${props => (props.color === 'white') ? 'rgba(255, 255, 255, 0.85)' : '#1D3557'};
 	}
 `
 
@@ -123,6 +124,9 @@ const Logo = styled.img`
   	width:44px;
 	z-index: 10;
 	fill: ${props => (props.color === 'black') ? 'black' : 'white'};
+	@media(prefers-color-scheme: dark) {
+		content: url('/Logo.svg');
+	}
 `
 
 export default withRouter(MyNavbar)

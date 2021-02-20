@@ -6,14 +6,16 @@ require('dotenv/config');
 
 const app = express();
 const messageRoutes = require('./routes/messages');
+const cryptoRoutes = require('./routes/crypto')
 const authRoute = require('./routes/auth');
 const getRoute = require('./routes/privateRoute')
 const verifyToken = require('./routes/verifyToken');
-mongoose.connect(process.env.DB_CONNECTION,
- { useNewUrlParser: true,
+mongoose.connect(process.env.DB_CONNECTION, {
+    useNewUrlParser: true,
+    poolSize: 10,
     useUnifiedTopology: true
     },
-    ()=> {
+    () => {
         console.log("Connected to Database");
 })
 
@@ -24,6 +26,7 @@ app.use('/messages', messageRoutes);
 app.use('/auth/user', authRoute);
 app.use('/private', verifyToken);
 app.use('/private', getRoute);
+app.use('/crypto', cryptoRoutes);
 
 // Routes
 app.get('/', (req, res) => {

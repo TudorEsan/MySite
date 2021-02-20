@@ -1,49 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components';
-import { cryptoAmount } from '../../Data/cryptoData';
+import styled, { keyframes } from 'styled-components';
 import { BodyIntro, BodyMain, H1, H2, H3, MediumText } from '../../styles/TextStyles';
 import { Dialog } from '../../Components/Dialog'
-import { getCryptoData } from '../../Api/Crypto'
 import { theme } from '../../Api/colorScheeme';
-import LoadingCrypto from './CryptoLoading';
  
-function Crypto() {
+function LoadingCrypto() {
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [crypto, setCrypto] = useState(false);
-
-    const addCrypto = async () => {
-        setIsOpen(true);
-        console.log('sdf')
-        await getCryptoData();
-    }
-
-    const cancel = () => {
-        setIsOpen(false);
-    }
-
-    const detectEsc = (e) => {
-        if (e.keyCode == 27) {
-            setIsOpen(false);
-            console.log('afa')
-        }
-    }
-
-    useEffect(async () => {
-        document.addEventListener("keydown", detectEsc, false)
-        const data = await getCryptoData();
-        setCrypto(data);
-        return () => {
-            document.removeEventListener("keydown", detectEsc, false)
-        }
-    }, [])
-
-    const submitCrypto = (e) => {
-        e.preventDefault();
-        console.log(e)
-    }
-
-    if (crypto !== false) {
         return (
             <>
                 <Container>
@@ -55,7 +17,7 @@ function Crypto() {
                 <Container2>
                     <ButtonContainer>
                         <Button theme={theme}>
-                            <ButtonLabel onClick={() => {addCrypto()}}>Add Crypto</ButtonLabel>
+                            <ButtonLabel>Add Crypto</ButtonLabel>
                         </Button>
                         <Button theme={theme}>
                             <ButtonLabel>Reacurring Buy</ButtonLabel> 
@@ -63,43 +25,18 @@ function Crypto() {
                     </ButtonContainer>
                     <Card theme={theme}>
                         <Heading theme={theme} >Overview</Heading>
-                        <Amount theme={theme} >{crypto.actualAmount} USD</Amount>
-                        <Percentage theme={theme} percentage={crypto.profit}>{crypto.profit} USD {crypto.totalPercentageGrowth}%</Percentage>
-                        <Dialog isOpen={isOpen}>
-                            <DialogTitle>Add Crypto</DialogTitle>
-                            <form onSubmit={submitCrypto}>
-                                <DialogContainer>
-                                    <DialogLabel>Type</DialogLabel>
-                                    <Input placeholder='Type'/>
-                                    <DialogLabel>Amount</DialogLabel>
-                                    <InputContainer>
-                                        <Input placeholder='Amount' />
-                                    </InputContainer>
-                                    <DialogLabel theme={theme} >Date</DialogLabel>
-                                    <Input placeholder="Date" />
-                                </DialogContainer>
-                                <ButtonContainer2>
-                                    <DialogButton theme={theme}>
-                                        <DialogButtonLabel theme={theme} type="submit">
-                                        Add Crypto
-                                        </DialogButtonLabel>
-                                    </DialogButton >
-                                    <DialogButtonLabel2 theme={theme} onClick={() => { cancel() }}>
-                                        Cancel
-                                    </DialogButtonLabel2>
-                                </ButtonContainer2>
-                            </form>
-                        </Dialog>
-                        {crypto.cryptoAmount.map((elem, index) => {
+                        <Amount theme={theme} ></Amount>
+                        <Percentage theme={theme}></Percentage>
+                        {[0, 0, 0].map((elem, index) => {
                             if (elem.amount !== 0) {
                                 return (
                                     <CryptoContainer key={index}>
-                                        <CryptoImg src={elem.icon} />
-                                        <CryptoName theme={theme}>{elem.name}</CryptoName>
+                                        <CryptoImg  />
+                                        <CryptoName theme={theme}></CryptoName>
                                         <Divider></Divider>
                                         <PriceContainer>
-                                            <CryptoPrice theme={theme}>{elem.amount} $</CryptoPrice>
-                                            <SmallPercentage theme={theme} percentage={elem.profit}>{ Math.abs(elem.growth) }%</SmallPercentage>
+                                            <CryptoPrice theme={theme}> </CryptoPrice>
+                                            <SmallPercentage theme={theme}></SmallPercentage>
                                         </PriceContainer>
                                     </CryptoContainer>
                                 )
@@ -109,14 +46,14 @@ function Crypto() {
                     </Card>
                     <Card theme={theme}>
                         <Heading theme={theme} >Transactions</Heading>
-                        {crypto.transactions.map((elem, index) => (
+                        {[0, 0, 0].map((elem, index) => (
                                     <CryptoContainer key={index}>
                                         <CryptoImg src={elem.icon} />
                                         <CryptoName theme={theme} >{elem.type}</CryptoName>
                                 <Divider></Divider>
                                 <PriceContainer>
-                                    <CryptoPrice theme={theme}>{elem.bought} $</CryptoPrice>
-                                    <BuyingDate theme={theme}>{elem.date}</BuyingDate>
+                                    <CryptoPrice theme={theme}></CryptoPrice>
+                                    <BuyingDate theme={theme}></BuyingDate>
                                 </PriceContainer>
                                     </CryptoContainer>
                                 ))}
@@ -124,37 +61,53 @@ function Crypto() {
                 </Container2> 
             </>
         )
-    } else {
-        return (
-            <LoadingCrypto></LoadingCrypto>
-        )
-    }
     
 }
 
-export default Crypto;
+
+export default LoadingCrypto;
+
+const fadingAnimation = keyframes`
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+`
 
 const BuyingDate = styled(MediumText)`
-    text-align: center;
-    font-size: 15px;
-    color: gray;
+    width: 100px;
+    height: 10px;
+    margin: 5px auto;
+    border-radius: 50px;
+    background: ${ props => props.theme.light.loading1 };
+
 `
 
 const Percentage = styled(MediumText)`
     text-align: center;
-    color: ${props => (props.percentage >= 0)? 'green' : 'red'};
+    color: ${props => (props.percentage >= 0) ? 'green' : 'red'};
+    width: 60px;
+    height: 10px;
+    margin: 5px auto;
+    border-radius: 50px;
+    animation: ${fadingAnimation} 2s ease-in-out infinite;
+    background: ${ props => props.theme.light.loading1 };
 `
 
 const SmallPercentage = styled(Percentage)`
     position: relative;
     font-size: 14px;
-    :before {
-        position: absolute;
-        top: 50%;
-        left: -5px;
-        content: ${props => (props.percentage >= 0)? "url('/green_arrow.svg')" : "url('/red_arrow.svg')"};
-        transform: translate(-50%, -50%);
-    }
+    width: 50px;
+    height: 7px;
+    margin: 5px auto;
+    animation: ${fadingAnimation} 2s ease-in-out infinite;
+    border-radius: 50px;
+    background: ${ props => props.theme.light.loading1};
 
 `
 
@@ -165,14 +118,7 @@ const PriceContainer = styled.div`
 `
 
 
-const DialogButtonLabel = styled.button`
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+const DialogButtonLabel = styled.p`
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -244,6 +190,7 @@ const Input = styled.input`
   background: #DADFE9;
   border: none;
   border-radius: 3px;
+  animation: ${fadingAnimation} 2s ease-in-out infinite;
   :placeholder {
     color: #A3A7AE;
   }
@@ -265,18 +212,24 @@ const Heading = styled(H3)`
 `
 
 const Amount = styled(BodyMain)`
-    text-align: center;
+    width: 100px;
+    height: 15px;
+    margin: 5px auto;
+    border-radius: 50px;
+    animation: ${fadingAnimation} 2s ease-in-out infinite;
+    background: #C4C4C4 center center;
     @media(prefers-color-scheme: dark) {
         color: ${props => props.theme.dark.primaryTextColor};
     }
 `
 
 const CryptoPrice = styled(BodyIntro)`
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 140%;
-    text-align: center;
+    width: 80px;
+    height: 15px;
+    margin: 5px auto;
+    border-radius: 50px;
+    background: ${ props => props.theme.light.loading1 };
+    animation: ${fadingAnimation} 2s ease-in-out infinite;
     @media(max-width: 444px) {
         font-size: 17px;
     }
@@ -301,9 +254,11 @@ const CryptoName = styled(BodyIntro)`
 `
 
 const CryptoImg = styled.img`
-    object-fit: contain;
-    max-height: 60px;
-    max-width: 60px;
+    width: 76px;
+    height: 76px;
+    background: #C4C4C4;
+    border-radius: 50%;
+    animation: ${fadingAnimation} 2s ease-in-out infinite;
 `
 
 const CryptoContainer = styled.div`

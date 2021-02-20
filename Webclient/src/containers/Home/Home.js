@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { H1, BodyMain, MediumText, SmallText, H2, BodyIntro } from '../../styles/TextStyles';
 import { Card } from '../../styles/CardStyles';
 import styled from 'styled-components'
-import MenuTooltip from '../../components/MenuTooltip';
+import { theme } from '../../Api/colorScheeme';
 
 function Home() {
 
@@ -11,21 +11,21 @@ function Home() {
         <>
             <Container>
                 <ComputerWork src="/computer-work.svg" />
-                <Title>Hi.<br/>Welcome to<br/>My Website!</Title>
+                <Title theme={theme}>Hi.<br/>Welcome to<br/>My Website!</Title>
             </Container>
             <ContentWrapper>
-                    <InfoCard>
+                    <InfoCard theme={theme}>
                         <DescriptionWrapper>
                             <ShortDescription>
                                 <Avatar />
-                                <MediumText>
+                                <MediumText theme={theme}>
                                     Tudor Esan 
                                 </MediumText>
-                                <SmallText> 
+                                <SmallText theme={theme}> 
                                     Sibiu, Romania
                                 </SmallText>
                             </ShortDescription>
-                            <MyDescription>
+                            <MyDescription theme={theme}>
                                 Passionate about programming and ways in which technology can improve 
                                 our everyday lives. I find Computer Science and Artificial Intelligence 
                                 interesting, since abstracting real world problems into code is very 
@@ -83,6 +83,9 @@ const Icon = styled.div`
     @media(max-width: 444px) { 
         width: 50px;
         height: 50px;
+    }
+    @media(prefers-color-scheme: dark) {
+        background: linear-gradient(0deg, #374073, #374073), #18204D;
     }
 `
 
@@ -169,6 +172,10 @@ const Container = styled.div`
         flex-direction: column;
         height: 80vh;
     }
+    @media (prefers-color-scheme: dark) {
+        background: url('/Vector1_dark.svg') top center no-repeat;
+        background-size: cover;
+    }
 `
 
 const Container2 = styled.div`
@@ -189,6 +196,9 @@ const Title = styled(H1)`
     margin-top: 40px;
     color: white;
     text-align: center;
+    @media (prefers-color-scheme: dark) {
+        color: ${props => props.theme.dark.titleColor};
+    }
     @media(max-width: 414px) {
         font-size: 40px;
         line-height: 41px;
@@ -233,12 +243,19 @@ const MyDescription = styled(BodyMain)`
         line-height: 140%;
         max-width: 100%;
     }
+    @media (prefers-color-scheme: dark) {
+        color: ${ props => props.theme.dark.primaryTextColor };
+    }
+
 `
 
 
 const InfoCard = styled(Card)`
     width: 100%;
     padding: 30px;
+    @media (prefers-color-scheme: dark) {
+        background: linear-gradient(0deg, #374073, #374073), #18204D;
+    }
 `
 
 const ContentWrapper = styled.div`
