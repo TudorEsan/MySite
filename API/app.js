@@ -3,6 +3,12 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require('dotenv/config');
+const https = require('https');
+const fs = require('fs');
+const options = {
+  key: fs.readFileSync('privkey.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
 
 const app = express();
 const messageRoutes = require('./routes/messages');
@@ -35,4 +41,8 @@ app.get('/', (req, res) => {
 
 
 // Listen
-app.listen(8000);
+https.createServer(options, app).listen(443, ()=> {
+	console.log("statsad as");
+})
+
+
