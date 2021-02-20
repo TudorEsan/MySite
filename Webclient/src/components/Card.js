@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { theme } from '../Api/colorScheeme'
 
 export const Card = ({children}) => {
     return (
-        <Card theme={theme}>
+        <Card>
             {children}
         </Card>
     )
