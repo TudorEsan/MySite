@@ -42,7 +42,7 @@ function Crypto() {
         e.preventDefault();
         console.log(e)
     }
-
+    
     if (crypto !== false) {
         return (
             <>
@@ -90,16 +90,16 @@ function Crypto() {
                                 </ButtonContainer2>
                             </form>
                         </Dialog>
-                        {crypto.cryptoAmount.map((elem, index) => {
-                            if (elem.amount !== 0) {
+                        {Object.keys(crypto).map((key, index) => {
+                            if (!['amountInvested', 'actualAmount','totalGrowth'].includes(key)) {
                                 return (
                                     <CryptoContainer key={index}>
-                                        <CryptoImg src={elem.icon} />
-                                        <CryptoName theme={theme}>{elem.name}</CryptoName>
+                                        <CryptoImg src={crypto[key].icon} />
+                                        <CryptoName theme={theme}>{crypto[key].name}</CryptoName>
                                         <Divider></Divider>
                                         <PriceContainer>
-                                            <CryptoPrice theme={theme}>{elem.amount} $</CryptoPrice>
-                                            <SmallPercentage theme={theme} percentage={elem.profit}>{ Math.abs(elem.growth) }%</SmallPercentage>
+                                            <CryptoPrice theme={theme}>{crypto[key].amount} $</CryptoPrice>
+                                            <SmallPercentage theme={theme} percentage={crypto[key].profit}>{ Math.abs(crypto[key].growth) }%</SmallPercentage>
                                         </PriceContainer>
                                     </CryptoContainer>
                                 )
@@ -107,20 +107,20 @@ function Crypto() {
                         })
                         }
                     </Card>
-                    <Card theme={theme}>
+                    {/* <Card theme={theme}>
                         <Heading theme={theme} >Transactions</Heading>
-                        {crypto.transactions.map((elem, index) => (
+                        {Object.keys(crypto).map((key, index) => (
                                     <CryptoContainer key={index}>
-                                        <CryptoImg src={elem.icon} />
-                                        <CryptoName theme={theme} >{elem.type}</CryptoName>
+                                        <CryptoImg src={crypto[key].icon} />
+                                        <CryptoName theme={theme} >{crypto[key].type}</CryptoName>
                                 <Divider></Divider>
                                 <PriceContainer>
-                                    <CryptoPrice theme={theme}>{elem.bought} $</CryptoPrice>
-                                    <BuyingDate theme={theme}>{elem.date}</BuyingDate>
+                                    <CryptoPrice theme={theme}>{crypto[key].bought} $</CryptoPrice>
+                                    <BuyingDate theme={theme}>{crypto[key].date}</BuyingDate>
                                 </PriceContainer>
                                     </CryptoContainer>
                                 ))}
-                    </Card>
+                    </Card> */}
                 </Container2> 
             </>
         )
