@@ -4,43 +4,101 @@ const { getFormatedDate2 } = require('../formaters/dateFormater');
 
 
 const CryptoSchema = mongoose.Schema({
-    type: {
-        type: String,
-        enum: [ 'Ether', "Bitcoin", "Stellar"],
-        required: true
+    user: {
+        type: String
     },
-    cryptoBuyingPrice: {
-        type: Number,
-        required: true
+    portofolioAmount: {
+        type: Number
     },
-    bought: {
-        type: Number,
-        required: true
+    amountInvested: {
+        type: Number
     },
-    currentPrice: {
-        type: Number,
-        required: false
+    actualAmount: {
+        type: Number
     },
-    date: {
-        type: String,
-        default: getFormatedDate2(Date.now()),
-        required: false
+    profit: {
+        type: Number
     },
-    soldAt: {
-        type: Date,
-        required: false,
-        default: null
-
+    amountSold: {
+        type: Number
     },
-    sold: {
-        type: Number,
-        required: false,
-        default: null
+    ether: {
+        type: {
+            amountInvested: {
+                type: Number
+            },
+            actualAmount: {
+                type: Number
+            },
+            transactions: {
+                type: [{
+                    date: {
+                        type: String
+                    },
+                    price: {
+                        type: Number
+                    }
+                }]
+            },
+            priceCalculatedAt: {
+                type: Number
+            },
+            amountSold: {
+                type: Number
+            },
+        }
     },
-    soldCryptoPrice: {
-        type: Number,
-        required: false,
-        default: null
+    bitcoin: {
+        type: {
+            amountInvested: {
+                type: Number
+            },
+            actualAmount: {
+                type: Number
+            },
+            transactions: {
+                type: [{
+                    date: {
+                        type: String
+                    },
+                    price: {
+                        type: Number
+                    }
+                }]
+            },
+            priceCalculatedAt: {
+                type: Number
+            },
+            amountSold: {
+                type: Number
+            },
+        }
+    },
+    xlm: {
+        type: {
+            amountInvested: {
+                type: Number
+            },
+            actualAmount: {
+                type: Number
+            },
+            transactions: {
+                type: [{
+                    date: {
+                        type: String
+                    },
+                    price: {
+                        type: Number
+                    }
+                }]
+            },
+            priceCalculatedAt: {
+                type: Number
+            },
+            amountSold: {
+                type: Number
+            },
+        }
     }
 })
 

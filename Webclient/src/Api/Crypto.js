@@ -1,4 +1,4 @@
-const path = 'https://tudoresan.hopto.org/crypto'
+const path = 'https://localhost/crypto'
 
 export const getCryptoData = async () => {
     const resp = await fetch(path, {
