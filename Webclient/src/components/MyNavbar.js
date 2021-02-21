@@ -1,4 +1,4 @@
-import styled,{ keyframes } from 'styled-components'
+import styled from 'styled-components'
 import React, {useState} from 'react'
 import { withRouter } from 'react-router'
 import { BodyIntro } from '../styles/TextStyles'
@@ -11,7 +11,7 @@ function MyNavbar({ history }) {
 
 	const shouldUnderline = (link) => {
 		const { pathname } = history.location
-		return link == pathname;
+		return link === pathname;
 	}
 	
 	shouldUnderline();
@@ -22,13 +22,13 @@ function MyNavbar({ history }) {
 
 	const getColor = () => {
 		const { pathname } = history.location;
-		if (pathname == 'crypto/')
+		if (pathname === 'crypto/')
 			return 'black';
 		return 'white';
 	}
 	const isDark = () => {
 		const { pathname } = history.location;
-		if (pathname == '/crypto')
+		if (pathname === '/crypto')
 			return true;
 		return false;
 	}

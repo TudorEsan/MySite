@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components';
 import { BodyIntro, BodyMain, H1, H2, H3, MediumText } from '../../styles/TextStyles';
-import { Dialog } from '../../Components/Dialog'
+import { Dialog } from '../../components/Dialog'
 import { theme } from '../../Api/colorScheeme';
  
 function LoadingCrypto() {

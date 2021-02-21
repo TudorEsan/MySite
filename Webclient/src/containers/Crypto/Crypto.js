@@ -2,7 +2,7 @@ import React, { createRef, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { cryptoAmount } from '../../Data/cryptoData';
 import { BodyIntro, BodyMain, H1, H2, H3, MediumText } from '../../styles/TextStyles';
-import { Dialog } from '../../Components/Dialog'
+import { Dialog } from '../../components/Dialog'
 import { getCryptoData, addCrypto } from '../../Api/Crypto'
 import { theme } from '../../Api/colorScheeme';
 import LoadingCrypto from './CryptoLoading';
