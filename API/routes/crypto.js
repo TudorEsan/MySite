@@ -16,19 +16,18 @@ router.post('/', async (req, res) => {
     }
     req.body.icon = icon;
     addAmount(user, req.body);
-    res.status(200).send('Updated')
-    
+    res.status(200).send('Updated');
 });
 
 router.get("/", async (req, res) => {
     try {
         const user = await Crypto.findOne({ user: "Tudor" });
         const keys = getCryptoKeys(user)
-        const statistics = await calcStatistics(user, keys)
-        console.log(statistics)
-        return res.status(200).json({...statistics});
+        const statistics = await calcStatistics(user, keys);
+	const statisticsObj = statistics.toObject();
+        return res.status(200).json({ ...statisticsObj });
     } catch (er) {
-        return res.status(400).json({ message: er })
+        return res.status(400).send(er);
     }
 });
 

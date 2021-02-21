@@ -1,3 +1,4 @@
+const compression = require('compression');
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -27,6 +28,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
 
 // Middlewares (runs something when a path is accesed)
 app.use(bodyParser.json());
+app.use(compression());
 app.use(cors());
 app.use('/messages', messageRoutes);
 app.use('/auth/user', authRoute);
@@ -41,6 +43,7 @@ app.get('/', (req, res) => {
 
 
 // Listen
+https.globalAgent.maxSockets = Infinity;
 https.createServer(options, app).listen(443, ()=> {
 	console.log("statsad as");
 })
