@@ -13,7 +13,6 @@ const Container = styled.div`
     padding: 20px 50px;
     background-color: #F2F6FF;
     z-index: 1000;
-    overflow: auto;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -22,4 +21,7 @@ const Container = styled.div`
     visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
     opacity: ${props => (props.isOpen ? '1' : '0')};
     transition: 0.3s ease;
+    @media(max-width: 800px) {
+        padding: 20px 25px;
+    }
 `

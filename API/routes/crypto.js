@@ -24,9 +24,10 @@ router.get("/", async (req, res) => {
         const user = await Crypto.findOne({ user: "Tudor" });
         const keys = getCryptoKeys(user)
         const statistics = await calcStatistics(user, keys);
-	const statisticsObj = statistics.toObject();
-        return res.status(200).json({ ...statisticsObj });
+        
+        return res.status(200).json({ ...statistics});
     } catch (er) {
+        console.log(er)
         return res.status(400).send(er);
     }
 });

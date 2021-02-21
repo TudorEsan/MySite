@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { cryptoAmount } from '../../Data/cryptoData';
 import { BodyIntro, BodyMain, H1, H2, H3, MediumText } from '../../styles/TextStyles';
 import { Dialog } from '../../Components/Dialog'
-import { getCryptoData } from '../../Api/Crypto'
+import { getCryptoData, addCrypto } from '../../Api/Crypto'
 import { theme } from '../../Api/colorScheeme';
 import LoadingCrypto from './CryptoLoading';
  
@@ -12,20 +12,22 @@ function Crypto() {
     const [isOpen, setIsOpen] = useState(false);
     const [crypto, setCrypto] = useState(false);
 
-    const addCrypto = async () => {
+    const openDialog = async () => {
         setIsOpen(true);
-        console.log('sdf')
-        await getCryptoData();
     }
 
     const cancel = () => {
         setIsOpen(false);
+        document.getElementById("cryptoForm").reset();
+    }
+
+    const twoDigits = (n) => {
+        return Math.trunc(n * 100) / 100;
     }
 
     const detectEsc = (e) => {
         if (e.keyCode == 27) {
             setIsOpen(false);
-            console.log('afa')
         }
     }
 
@@ -34,13 +36,22 @@ function Crypto() {
         const data = await getCryptoData();
         setCrypto(data);
         return () => {
+            console.log('destroyed')
             document.removeEventListener("keydown", detectEsc, false)
         }
     }, [])
 
-    const submitCrypto = (e) => {
+    const submitCrypto = async (e) => {
         e.preventDefault();
-        console.log(e)
+        const { date, amount, type, usd } = e.target;
+        const data = {
+            date: date.value,
+            amount: amount.value,
+            type: type.value,
+            usd: usd.value
+        }
+        const message = await addCrypto(data);
+
     }
     
     if (crypto !== false) {
@@ -55,7 +66,7 @@ function Crypto() {
                 <Container2>
                     <ButtonContainer>
                         <Button theme={theme}>
-                            <ButtonLabel onClick={() => {addCrypto()}}>Add Crypto</ButtonLabel>
+                            <ButtonLabel onClick={() => {openDialog()}}>Add Crypto</ButtonLabel>
                         </Button>
                         <Button theme={theme}>
                             <ButtonLabel>Reacurring Buy</ButtonLabel> 
@@ -63,20 +74,22 @@ function Crypto() {
                     </ButtonContainer>
                     <Card theme={theme}>
                         <Heading theme={theme} >Overview</Heading>
-                        <Amount theme={theme} >{crypto.actualAmount} USD</Amount>
-                        <Percentage theme={theme} percentage={crypto.profit}>{crypto.profit} USD {crypto.totalPercentageGrowth}%</Percentage>
+                        <Amount theme={theme} >{twoDigits(crypto.actualAmount)} USD</Amount>
+                        <Percentage theme={theme} percentage={crypto.actualAmount - crypto.amountInvested}>{twoDigits(crypto.actualAmount - crypto.amountInvested)} USD {twoDigits(crypto.totalGrowth * 100)}%</Percentage>
                         <Dialog isOpen={isOpen}>
                             <DialogTitle>Add Crypto</DialogTitle>
-                            <form onSubmit={submitCrypto}>
+                            <form id="cryptoForm" onSubmit={submitCrypto}>
                                 <DialogContainer>
                                     <DialogLabel>Type</DialogLabel>
-                                    <Input placeholder='Type'/>
-                                    <DialogLabel>Amount</DialogLabel>
+                                    <Input placeholder='Type' name="type"/>
+                                    <DialogLabel>USD</DialogLabel>
                                     <InputContainer>
-                                        <Input placeholder='Amount' />
+                                        <Input placeholder='USD' type='number' name="usd"/>
                                     </InputContainer>
+                                    <DialogLabel theme={theme} type='number' >Amount</DialogLabel>
+                                    <Input placeholder="Amount" name='amount'/>
                                     <DialogLabel theme={theme} >Date</DialogLabel>
-                                    <Input placeholder="Date" />
+                                    <Input placeholder="Date" name='date'/>
                                 </DialogContainer>
                                 <ButtonContainer2>
                                     <DialogButton theme={theme}>
@@ -91,15 +104,15 @@ function Crypto() {
                             </form>
                         </Dialog>
                         {Object.keys(crypto).map((key, index) => {
-                            if (!['amountInvested', 'actualAmount','totalGrowth'].includes(key)) {
+                            if (!['amountInvested', 'actualAmount', 'totalGrowth'].includes(key)) {
                                 return (
                                     <CryptoContainer key={index}>
                                         <CryptoImg src={crypto[key].icon} />
                                         <CryptoName theme={theme}>{crypto[key].name}</CryptoName>
                                         <Divider></Divider>
                                         <PriceContainer>
-                                            <CryptoPrice theme={theme}>{crypto[key].amount} $</CryptoPrice>
-                                            <SmallPercentage theme={theme} percentage={crypto[key].profit}>{ Math.abs(crypto[key].growth) }%</SmallPercentage>
+                                            <CryptoPrice theme={theme}>{twoDigits(crypto[key].currentUsd)}$</CryptoPrice>
+                                            <SmallPercentage theme={theme} percentage={crypto[key].growth}>{ twoDigits(Math.abs(crypto[key].growth * 100))}%</SmallPercentage>
                                         </PriceContainer>
                                     </CryptoContainer>
                                 )
@@ -107,20 +120,24 @@ function Crypto() {
                         })
                         }
                     </Card>
-                    {/* <Card theme={theme}>
+                    <Card theme={theme}>
                         <Heading theme={theme} >Transactions</Heading>
-                        {Object.keys(crypto).map((key, index) => (
+                        {Object.keys(crypto).map((key, index) => {
+                            if (!['amountInvested', 'actualAmount', 'totalGrowth'].includes(key)) {
+                                return (crypto[key].transactions.map((elem, index) => (
                                     <CryptoContainer key={index}>
-                                        <CryptoImg src={crypto[key].icon} />
-                                        <CryptoName theme={theme} >{crypto[key].type}</CryptoName>
-                                <Divider></Divider>
-                                <PriceContainer>
-                                    <CryptoPrice theme={theme}>{crypto[key].bought} $</CryptoPrice>
-                                    <BuyingDate theme={theme}>{crypto[key].date}</BuyingDate>
-                                </PriceContainer>
+                                            <CryptoImg src={crypto[key].icon} />
+                                            <CryptoName theme={theme} >{crypto[key].name}</CryptoName>
+                                    <Divider></Divider>
+                                    <PriceContainer>
+                                        <CryptoPrice theme={theme}>{elem.usd} $</CryptoPrice>
+                                        <BuyingDate theme={theme}>{elem.date}</BuyingDate>
+                                    </PriceContainer>
                                     </CryptoContainer>
-                                ))}
-                    </Card> */}
+                            )))  
+                            }
+                        })}
+                    </Card>
                 </Container2> 
             </>
         )
@@ -148,10 +165,11 @@ const Percentage = styled(MediumText)`
 const SmallPercentage = styled(Percentage)`
     position: relative;
     font-size: 14px;
+
     :before {
         position: absolute;
         top: 50%;
-        left: -5px;
+        left: -7px;
         content: ${props => (props.percentage >= 0)? "url('/green_arrow.svg')" : "url('/red_arrow.svg')"};
         transform: translate(-50%, -50%);
     }
@@ -161,7 +179,7 @@ const SmallPercentage = styled(Percentage)`
 const PriceContainer = styled.div`
     display: grid;
     grid-gap: 5px;
-    justify-content: center;
+    justify-items: center;
 `
 
 
@@ -180,6 +198,7 @@ const DialogButtonLabel = styled.button`
     color: white;
     text-align: center;
     cursor: pointer;
+    width: 250px;
 
 `
 const DialogButtonLabel2 = styled.p`
@@ -233,6 +252,11 @@ const DialogContainer = styled.div`
     grid-gap: 15px;
     align-items: center;
     margin-bottom: 15px;
+
+    @media(max-width: 800px) {
+        grid-template-columns: 1fr;
+        grid-gap: 0px;
+    }
 `
 
 const Input = styled.input`
@@ -246,6 +270,9 @@ const Input = styled.input`
   border-radius: 3px;
   :placeholder {
     color: #A3A7AE;
+  }
+  @media(max-width: 800px) {
+      margin-bottom: 10px;
   }
 `;
 
