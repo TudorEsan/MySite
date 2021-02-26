@@ -20,6 +20,20 @@ router.post('/', async (req, res) => {
     res.status(200).send('Updated');
 });
 
+router.get("/test", async (req, res) => { 
+	console.log(Crypto, "requested");
+	const test = await new Crypto({
+		user: 'Tudor'
+	});
+    try {
+        await test.save();
+        console.log("saved")
+        res.send(";)");
+    } catch (e) {
+        res.send(e);
+    }
+})
+
 router.get("/", async (req, res) => {
     try {
         const user = await Crypto.findOne({ user: 'Tudor' });
