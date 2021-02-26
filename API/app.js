@@ -6,6 +6,8 @@ const cors = require("cors");
 require('dotenv/config');
 const https = require('https');
 const fs = require('fs');
+const dbName = 'crypto';
+var db;
 const options = {
   key: fs.readFileSync('privkey.pem'),
   cert: fs.readFileSync('cert.pem')
@@ -22,7 +24,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
     poolSize: 10,
     useUnifiedTopology: true
     },
-    () => {
+  () => {
         console.log("Connected to Database");
 })
 

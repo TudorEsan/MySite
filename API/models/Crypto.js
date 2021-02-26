@@ -5,30 +5,38 @@ const { getFormatedDate2 } = require('../formaters/dateFormater');
 
 const CryptoSchema = mongoose.Schema({
     user: {
-        type: String
+        type: String,
+        default: 'tudor'
     },
     portofolioAmount: {
-        type: Number
+        type: Number,
+        default: 0
     },
     amountInvested: {
-        type: Number
+        type: Number,
+        default: 0
     },
     actualAmount: {
-        type: Number
+        type: Number,
+        default: 0
     },
     profit: {
-        type: Number
+        type: Number,
+        default: 0
     },
     amountSold: {
-        type: Number
+        type: Number,
+        default: 0
     },
     ether: {
         type: {
             amountInvested: {
-                type: Number
+                type: Number,
+                default: 0
             },
             actualAmount: {
-                type: Number
+                type: Number,
+                default: 0
             },
             transactions: {
                 type: [{
@@ -39,9 +47,6 @@ const CryptoSchema = mongoose.Schema({
                         type: Number
                     }
                 }]
-            },
-            priceCalculatedAt: {
-                type: Number
             },
             amountSold: {
                 type: Number
