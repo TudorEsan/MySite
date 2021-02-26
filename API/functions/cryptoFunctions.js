@@ -72,6 +72,8 @@ const calcStatistics = async (user, keys) => {
             statistics[key].getCurrentPrices = currentUsdAmount;
             statistics[key].transactions = user._doc[key].transactions;
             statistics.actualAmount = statistics.actualAmount + currentUsdAmount;
+            statistics[key].name = user._doc[key].name;
+            statistics[key].icon = user._doc[key].icon;
         })
         statistics.totalGrowth = getGrowth(statistics.amountInvested, statistics.actualAmount);
         console.log(statistics);

@@ -19,6 +19,7 @@ const cryptoRoutes = require('./routes/crypto')
 const authRoute = require('./routes/auth');
 const getRoute = require('./routes/privateRoute')
 const verifyToken = require('./routes/verifyToken');
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     poolSize: 10,
