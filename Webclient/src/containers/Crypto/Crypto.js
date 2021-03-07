@@ -57,26 +57,7 @@ function Crypto() {
     if (crypto !== false) {
         return (
             <>
-                <Container>
-                    <TitleContainer>
-                        <Title>My <br/>Cryptocurencies</Title>
-                    </TitleContainer>
-                    <Ilustration src='CryptoIlustration.svg'/>
-                </Container>
-                <Container2>
-                    <ButtonContainer>
-                        <Button theme={theme}>
-                            <ButtonLabel onClick={() => {openDialog()}}>Add Crypto</ButtonLabel>
-                        </Button>
-                        <Button theme={theme}>
-                            <ButtonLabel>Reacurring Buy</ButtonLabel> 
-                        </Button>
-                    </ButtonContainer>
-                    <Card theme={theme}>
-                        <Heading theme={theme} >Overview</Heading>
-                        <Amount theme={theme} >{twoDigits(crypto.actualAmount)} USD</Amount>
-                        <Percentage theme={theme} percentage={crypto.actualAmount - crypto.amountInvested}>{twoDigits(crypto.actualAmount - crypto.amountInvested)} USD {twoDigits(crypto.totalGrowth * 100)}%</Percentage>
-                        <Dialog isOpen={isOpen}>
+                <Dialog isOpen={isOpen}>
                             <DialogTitle>Add Crypto</DialogTitle>
                             <form id="cryptoForm" onSubmit={submitCrypto}>
                                 <DialogContainer>
@@ -103,8 +84,30 @@ function Crypto() {
                                 </ButtonContainer2>
                             </form>
                         </Dialog>
+                <SupremeContainer isOpen={isOpen}>
+                <Container>
+                    <TitleContainer>
+                        <Title>My <br/>Cryptocurencies</Title>
+                    </TitleContainer>
+                    <Ilustration src='CryptoIlustration.svg'/>
+                </Container>
+                <Container2>
+                    <ButtonContainer>
+                        <Button theme={theme}>
+                            <ButtonLabel onClick={() => {openDialog()}}>Add Crypto</ButtonLabel>
+                        </Button>
+                        <Button theme={theme}>
+                            <ButtonLabel>Reacurring Buy</ButtonLabel> 
+                        </Button>
+                    </ButtonContainer>
+                    <Card theme={theme}>
+                        <Heading theme={theme} >Overview</Heading>
+                        <Amount theme={theme} >{twoDigits(crypto.actualAmount)} USD</Amount>
+                        <Percentage theme={theme} percentage={crypto.actualAmount - crypto.amountInvested}>{twoDigits(crypto.actualAmount - crypto.amountInvested)} USD {twoDigits(crypto.totalGrowth * 100)}%</Percentage>
+                        
                         {Object.keys(crypto).map((key, index) => {
                             if (!['amountInvested', 'actualAmount', 'totalGrowth'].includes(key)) {
+                                console.log(crypto[key])
                                 return (
                                     <CryptoContainer key={index}>
                                         <CryptoImg src={crypto[key].icon} />
@@ -118,7 +121,7 @@ function Crypto() {
                                 )
                             }
                         })
-                        }
+                    }
                     </Card>
                     <Card theme={theme}>
                         <Heading theme={theme} >Transactions</Heading>
@@ -135,21 +138,26 @@ function Crypto() {
                                     </PriceContainer>
                                     </CryptoContainer>
                             )))  
-                            }
-                        })}
+                        }
+                    })}
                     </Card>
                 </Container2> 
-            </>
+        </SupremeContainer>
+        </>
         )
     } else {
         return (
             <LoadingCrypto></LoadingCrypto>
-        )
-    }
+            )
+        }
     
 }
 
 export default Crypto;
+
+const SupremeContainer = styled.div`
+    filter: ${props => (props.isOpen === true) ? 'blur(5px)' : 'none'};
+`     
 
 const BuyingDate = styled(MediumText)`
     text-align: center;

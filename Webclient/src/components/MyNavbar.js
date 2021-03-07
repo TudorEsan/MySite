@@ -22,15 +22,15 @@ function MyNavbar({ history }) {
 
 	const getColor = () => {
 		const { pathname } = history.location;
-		if (pathname === 'crypto/')
-			return 'black';
-		return 'white';
+		const elem = navbarData.find(elem => elem.link === pathname)
+		return elem.navbarColor;
 	}
 	const isDark = () => {
+		return getColor() === 'black';
+	}
+	const override = () => {
 		const { pathname } = history.location;
-		if (pathname === '/crypto')
-			return true;
-		return false;
+		return pathname == '/'
 	}
 
 	return (
@@ -39,7 +39,7 @@ function MyNavbar({ history }) {
 				<Logo src={isDark()?'/Logo_dark.svg' : 'Logo.svg'} color={ getColor() }/>
 				<LabelWrapper items={navbarData.length}>
 					{navbarData.map(elem => (
-						<MenuLabel color={ getColor() } underline={shouldUnderline(elem.link)} onClick={(e) => navigate(e, elem.link)}>{ elem.title }</MenuLabel>
+						<MenuLabel color={getColor()} override={ override() } underline={shouldUnderline(elem.link)} onClick={(e) => navigate(e, elem.link)}>{ elem.title }</MenuLabel>
 					))}
 				</LabelWrapper>
 				<StyledBurger className="nav" onClick={() => {setIsOpen(!isOpen);} }>
@@ -57,6 +57,9 @@ const Line = styled.div`
 	height: 6px;
 	border-radius: 14px;
 	background: ${props => (props.color === 'white') ? 'white' : 'black'};
+	@media(prefers-color-scheme: dark) { 
+		background: ${props => (props.color === 'white') ? 'black' : 'white'};
+	}
 	transform: ${props => (props.animate===true)? "scale(1.4)": "" };
 	transition: 0.3;
 `
@@ -100,7 +103,9 @@ const MenuLabel = styled(BodyIntro)`
 		transform: scale(1.1);
 	}
 	@media(prefers-color-scheme: dark) {
-		color: ${props => (props.color === 'white') ? 'rgba(255, 255, 255, 0.85)' : '#1D3557'};
+		color: ${props => (props.color === 'white') ? '#1D3557' : "rgba(255, 255, 255, 0.85)"};
+		color: ${props => (props.override) ? "rgba(255, 255, 255, 0.85)" : ''};
+		
 	}
 `
 
