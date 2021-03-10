@@ -20,7 +20,7 @@ function LoadingCrypto() {
                             <ButtonLabel>Add Crypto</ButtonLabel>
                         </Button>
                         <Button theme={theme}>
-                            <ButtonLabel>Reacurring Buy</ButtonLabel> 
+                            <ButtonLabel>Sell</ButtonLabel> 
                         </Button>
                     </ButtonContainer>
                     <Card theme={theme}>

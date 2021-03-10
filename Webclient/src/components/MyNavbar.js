@@ -43,8 +43,8 @@ function MyNavbar({ history }) {
 					))}
 				</LabelWrapper>
 				<StyledBurger className="nav" onClick={() => {setIsOpen(!isOpen);} }>
-					<Line color={ getColor() }/>
-					<Line color={ getColor() }/>
+					<Line color={ getColor() } override={ override() }/>
+					<Line color={ getColor() } override={ override() }/>
 				</StyledBurger>
 			</MenuWrapper> 
 			<MenuTooltip isOpen={isOpen} setIsOpen={setIsOpen}/>
@@ -58,7 +58,8 @@ const Line = styled.div`
 	border-radius: 14px;
 	background: ${props => (props.color === 'white') ? 'white' : 'black'};
 	@media(prefers-color-scheme: dark) { 
-		background: ${props => (props.color === 'white') ? 'black' : 'white'};
+		background: white;
+		opacity: 0.9;
 	}
 	transform: ${props => (props.animate===true)? "scale(1.4)": "" };
 	transition: 0.3;

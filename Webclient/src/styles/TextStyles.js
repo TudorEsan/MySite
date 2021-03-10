@@ -49,6 +49,10 @@ export const Caption2 = styled.p`
   text-transform: uppercase;
 `
 
+export const ErrorMessage = styled(MediumText)`
+  color: red;
+`
+
 export const SmallText = styled.p`
   font-weight: normal;
   font-size: 13px;

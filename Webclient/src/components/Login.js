@@ -12,7 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 const schema = yup.object().shape({
     username: yup.string().required(),
     password: yup.string().required(),
-  });
+});
 
 export const Login = ({ isOpen }) => {
     const { register, handleSubmit, errors } = useForm({
@@ -98,6 +98,8 @@ const InputContainer = styled.div`
     }
 
 `
+
+
 
 const Input = styled(NormalInput)`
     border: ${ props => !!props.error? '1px solid red' : ''};
