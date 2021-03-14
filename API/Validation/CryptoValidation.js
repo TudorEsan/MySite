@@ -11,4 +11,11 @@ const cryptoValidation = (date) => {
     return schema.validate(date);
 }
 
-module.exports = cryptoValidation;
+const validateBallance = (obj) => {
+    const schema = Joi.object({
+        ballance: Joi.number().required(),
+        user: Joi.string().required()
+    })
+    return schema.validate(obj)
+}
+module.exports = { cryptoValidation, validateBallance};

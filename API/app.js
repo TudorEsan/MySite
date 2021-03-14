@@ -30,11 +30,12 @@ mongoose.connect(process.env.DB_CONNECTION, {
 })
 
 // Middlewares (runs something when a path is accesed)
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(compression());
 app.use(cors());
 app.use('/messages', messageRoutes);
-app.use('/auth/user', authRoute);
+app.use('/auth', authRoute);
 app.use('/private', verifyToken);
 app.use('/private', getRoute);
 app.use('/crypto', cryptoRoutes);
@@ -43,6 +44,7 @@ app.use('/crypto', cryptoRoutes);
 app.get('/', (req, res) => {
     res.send('Hellooo');
 });
+
 
 
 // Listen

@@ -6,7 +6,11 @@ const { getFormatedDate2 } = require('../formaters/dateFormater');
 const CryptoSchema = mongoose.Schema({
     user: {
         type: String,
-        default: 'tudor'
+        default: ''
+    },
+    ballance: {
+        type: Number,
+        default: 0.0
     },
     portofolioAmount: {
         type: Number,
@@ -28,83 +32,6 @@ const CryptoSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    ether: {
-        type: {
-            amountInvested: {
-                type: Number,
-                default: 0
-            },
-            actualAmount: {
-                type: Number,
-                default: 0
-            },
-            transactions: {
-                type: [{
-                    date: {
-                        type: String
-                    },
-                    price: {
-                        type: Number
-                    }
-                }]
-            },
-            amountSold: {
-                type: Number
-            },
-        }
-    },
-    bitcoin: {
-        type: {
-            amountInvested: {
-                type: Number
-            },
-            actualAmount: {
-                type: Number
-            },
-            transactions: {
-                type: [{
-                    date: {
-                        type: String
-                    },
-                    price: {
-                        type: Number
-                    }
-                }]
-            },
-            priceCalculatedAt: {
-                type: Number
-            },
-            amountSold: {
-                type: Number
-            },
-        }
-    },
-    xlm: {
-        type: {
-            amountInvested: {
-                type: Number
-            },
-            actualAmount: {
-                type: Number
-            },
-            transactions: {
-                type: [{
-                    date: {
-                        type: String
-                    },
-                    price: {
-                        type: Number
-                    }
-                }]
-            },
-            priceCalculatedAt: {
-                type: Number
-            },
-            amountSold: {
-                type: Number
-            },
-        }
-    }
 })
 
 module.exports = mongoose.model("Crypto", CryptoSchema); 
