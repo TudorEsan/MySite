@@ -50,6 +50,7 @@ export const Caption2 = styled.p`
 `
 
 export const ErrorMessage = styled(MediumText)`
+  text-align: center;
   color: red;
 `
 

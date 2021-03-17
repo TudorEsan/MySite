@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { BodyMain, H2, MediumText, SmallText } from '../styles/TextStyles'
+import { BodyMain, ErrorMessage, H2, MediumText, SmallText } from '../styles/TextStyles'
 import { NormalInput } from '../styles/InputStyles'
 import { Dialog } from './Dialog'
 import { NormalButton } from '../styles/ButtonStyles'
@@ -8,46 +8,72 @@ import { theme } from '../Api/colorScheeme'
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import Auth from "../Api/Authentification"
 
 const schema = yup.object().shape({
     username: yup.string().required(),
     password: yup.string().required(),
 });
 
-export const Login = ({ isOpen }) => {
-    const { register, handleSubmit, errors } = useForm({
-        resolver: yupResolver(schema),
-        mode: 'onBlur'
-    });
+export const Login = ({ isOpen, onDismiss }) => {
+	const { register, handleSubmit, errors } = useForm({
+		resolver: yupResolver(schema),
+		mode: "onBlur",
+	});
 
-    const onSubmit = (data, e) => {
-        console.log(data)
-    }
-    console.log(errors.username)
-    return (
-        <>
+    const [error, setError] = useState("");
 
-        <Dialog isOpen={isOpen}>
-            <Container>
-                <Title>Login</Title>
-                    <FormContainer onSubmit={handleSubmit(onSubmit)}>
-                        <Label>Username</Label>
-                        <InputContainer error={errors.username}>
-                            <Input error={errors.username} name='username' placeholder='Username' ref={register} />
-                        </InputContainer>
-                        <Label>Password</Label>
-                        <Input type='password' name='password' placeholder='Password' ref={register}/>
-                        <Button type='submit' theme={theme}>
-                            <ButtonText theme={theme}>
-                                Login
-                            </ButtonText>
-                        </Button>
-                    </FormContainer>
-            </Container>
-        </Dialog>
-        </>
-    )
-}
+	const onSubmit = async (data, e) => {
+		const { password, username } = data;
+        const resp = await Auth.login(username, password);
+        if (!resp) {
+            onDismiss();
+        }
+        else {
+            setError(resp);
+        }
+	};
+	return (
+		<>
+			<Dialog isOpen={isOpen} onDismiss={onDismiss}>
+				<Container>
+					<Title>Login</Title>
+                    <Form onSubmit={handleSubmit(onSubmit)}>
+                        <FormContainer>
+                            <Label>Username</Label>
+                            <InputContainer error={errors.username}>
+                                <Input
+                                    error={errors.username}
+                                    name="username"
+                                    placeholder="Username"
+                                    ref={register}
+                                />
+                            </InputContainer>
+                            <Label>Password</Label>
+                            <Input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                ref={register}
+                                />
+                        </FormContainer>
+                        {error && (
+                            <ErrorMessage theme={theme}>{ error }</ErrorMessage>
+                        )}
+						<Button type="submit" theme={theme}>
+							<ButtonText theme={theme}>Login</ButtonText>
+						</Button>
+					</Form>
+                </Container>
+			</Dialog>
+		</>
+	);
+};
+
+const Form = styled.form`
+    display: grid;
+    justify-content: center;
+`
 
 const Error = styled(SmallText)`
     color: red;
@@ -73,7 +99,7 @@ const Container = styled.div`
 
     min-width: 250px;
 `
-const FormContainer = styled.form`
+const FormContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-gap: 25px;
@@ -84,6 +110,7 @@ const FormContainer = styled.form`
         grid-gap: 0px;
     }
 `
+
 
 const InputContainer = styled.div`
     position: relative;

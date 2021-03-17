@@ -1,13 +1,11 @@
 const compression = require('compression');
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+
 const cors = require("cors");
 require('dotenv/config');
 const https = require('https');
 const fs = require('fs');
-const dbName = 'crypto';
-var db;
 const options = {
   key: fs.readFileSync('privkey.pem'),
   cert: fs.readFileSync('cert.pem')

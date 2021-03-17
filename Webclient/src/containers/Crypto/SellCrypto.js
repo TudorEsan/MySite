@@ -41,37 +41,64 @@ export const SellCrypto = ({ isOpen, setState }) => {
             setRequestError(message)
         }
     }
-    console.log(errors)
     return (
-        <Dialog isOpen={isOpen}>
-            <DialogTitle>Add Crypto</DialogTitle>
-                <form id="cryptoForm" onSubmit={handleSubmit(submitCrypto)}>
-                    <DialogContainer>
-                        <DialogLabel>Type</DialogLabel>
-                        <Input placeholder='Type' name="type" error={!!errors.type} ref={register}/>
-                        <DialogLabel>Amount</DialogLabel>
-                        <Input placeholder='Amount' type='number' name="amount" error={!!errors.amount} ref={register}/>
-                        <DialogLabel theme={theme}>Price</DialogLabel>
-                        <Input placeholder="Price" type='number' name='price' error={!!errors.price} ref={register}/>
-                        <DialogLabel theme={theme} >Date</DialogLabel>
-                        <Input placeholder="Date" name='date' error={!!errors.date} ref={register}/>
-                    </DialogContainer>
-                    <ButtonContainer2>
-                        <Button theme={theme} type="submit">
-                            Sell Crypto
-                        </Button>
-                        <DialogButtonLabel2 theme={theme} onClick={() => { cancel() }}>
-                            Cancel
-                        </DialogButtonLabel2>
-                    </ButtonContainer2>
-            </form>
-            {requestError && (
-                <ErrorMessage>
-                    {requestError}
-                </ErrorMessage>
-            )}
-            </Dialog>
-    )
+		<Dialog isOpen={isOpen} onDismiss={cancel}>
+			<DialogTitle>Add Crypto</DialogTitle>
+			<form id="cryptoForm" onSubmit={handleSubmit(submitCrypto)}>
+				<DialogContainer>
+					<DialogLabel>Type</DialogLabel>
+					<Input
+						placeholder="Type"
+						name="type"
+						error={!!errors.type}
+						ref={register}
+					/>
+					<DialogLabel>Amount</DialogLabel>
+					<Input
+						placeholder="Amount"
+						type="number"
+						name="amount"
+						error={!!errors.amount}
+						ref={register}
+						step=".00001"
+						min="0"
+					/>
+					<DialogLabel theme={theme}>Price</DialogLabel>
+					<Input
+						placeholder="Price"
+						step=".00001"
+						type="number"
+						name="price"
+						min="0"
+						error={!!errors.price}
+						ref={register}
+					/>
+					<DialogLabel theme={theme}>Date</DialogLabel>
+					<Input
+						placeholder="Date"
+						name="date"
+						error={!!errors.date}
+						ref={register}
+						step=".01"
+					/>
+				</DialogContainer>
+				<ButtonContainer2>
+					<Button theme={theme} type="submit">
+						Sell Crypto
+					</Button>
+					<DialogButtonLabel2
+						theme={theme}
+						onClick={() => {
+							cancel();
+						}}
+					>
+						Cancel
+					</DialogButtonLabel2>
+				</ButtonContainer2>
+			</form>
+			{requestError && <ErrorMessage theme={theme}>{requestError}</ErrorMessage>}
+		</Dialog>
+	);
 }
 const Button = styled(NormalButton)`
     color: rgba(255,255,255, 0.8);
