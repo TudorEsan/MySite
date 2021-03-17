@@ -12,6 +12,7 @@ logs
 **/*.back.*
 
 node_modules
+/API/node_modules
 bower_components
 
 *.sublime*
