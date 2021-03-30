@@ -15,6 +15,7 @@ import { Component } from "react";
 import { SellCrypto } from "./SellCrypto";
 import { Login } from "../../components/Login";
 import Auth from "../../Api/Authentification";
+import { NormalButton } from "../../styles/ButtonStyles";
 
 class Crypto1 extends Component {
 	constructor(props) {
@@ -435,15 +436,7 @@ const ButtonLabel = styled(BodyIntro)`
 	}
 `;
 
-const Button = styled.div`
-	filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.25));
-	background: #229ad2;
-	border-radius: 50px;
-	padding: 5px 15px;
-	transition: 0.3s ease-out;
-	:hover {
-		transform: scale(1.05);
-	}
+const Button = styled(NormalButton)`
 	@media (prefers-color-scheme: dark) {
 		background: ${(props) => props.theme.dark.gradient1};
 	}
