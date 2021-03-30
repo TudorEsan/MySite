@@ -89,7 +89,7 @@ const Container3 = styled.div`
 		grid-template-columns: auto;
 		grid-template-rows: auto auto;
 		padding: 0;
-		height: 90%;
+		height: 80%;
 	}
 `;
 

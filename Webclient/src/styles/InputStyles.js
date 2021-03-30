@@ -13,7 +13,7 @@ export const NormalTextField = styled.textarea`
 	background: #dadfe9;
 	border: 1px solid #a5a5a5;
 	border-radius: 15px;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 	:placeholder {
 		color: #a3a7ae;
 	}
@@ -38,7 +38,7 @@ export const NormalInput = styled.input`
 	background: #dadfe9;
 	border: 1px solid #a5a5a5;
 	border-radius: 15px;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 	overflow: visible;
 	:placeholder {
 		color: #a3a7ae;
