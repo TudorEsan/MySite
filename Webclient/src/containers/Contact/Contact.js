@@ -175,6 +175,7 @@ const TextContainer = styled.div`
 	display: grid;
 	grid-gap: 16px;
     max-width: 300px;
+    justify-items: center;
 `;
 
 const Container1 = styled.div`
@@ -182,7 +183,7 @@ const Container1 = styled.div`
 	margin-top: 40px;
 	display: grid;
 	grid-template-columns: 4fr 6fr;
-	justify-content: center;
+	justify-items: center;
 	align-items: center;
 
 	@media (max-width: 620px) {
