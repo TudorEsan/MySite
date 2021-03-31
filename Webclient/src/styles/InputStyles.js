@@ -24,6 +24,9 @@ export const NormalTextField = styled.textarea`
 	@media (max-width: 800px) {
 		margin-bottom: 10px;
 	}
+	@media (max-width: 295px) {
+		width: 200px;
+	}
 `;
 
 export const NormalInput = styled.input`
@@ -46,6 +49,9 @@ export const NormalInput = styled.input`
 	border: ${(props) => (!!props.error ? "1px solid red" : "")};
 	:focus {
 		outline: none;
+	}
+	@media (max-width: 295px) {
+		width: 200px;
 	}
 	@media (max-width: 800px) {
 		margin-bottom: 10px;

@@ -19,6 +19,11 @@ export const NormalButton = styled.button`
 		transform: translateY(-1px);
 		box-shadow: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.25));
 		transform: scale(1.02);
+		border: none;
+		outline: none;
+	}
+	:focus {
+		border: none;
 		outline: none;
 	}
 	@media (prefers-color-scheme: dark) {

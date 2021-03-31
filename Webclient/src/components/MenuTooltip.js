@@ -7,13 +7,12 @@ function MenuTooltip({ isOpen, setIsOpen, history, onDismiss }) {
 
     return (
         <>
-
             <Wrapper isOpen={isOpen}>
                 { navbarData.map((elem, index) => (
                     <MenuItem onClick={ () => { history.push(elem.link); setIsOpen(false)}}key={index}>{elem.title} </ MenuItem>
                 ))}
             </Wrapper>
-            <Div isOpen={isOpen}>
+            <Div isOpen={isOpen} onClick={onDismiss}>
 
             </Div>
         </>
@@ -25,7 +24,7 @@ export default withRouter(MenuTooltip)
 const Div = styled.div`
     position: absolute;
     visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
-    z-index: 999;
+    z-index: -999;
     top: 0;
     bottom: 0;
     left: 0;

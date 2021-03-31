@@ -71,7 +71,7 @@ const StyledBurger = styled.nav`
 	justify-content: center;
 	align-items: center;
 
-	@media(min-width:444px) {
+	@media(min-width:600px) {
 		display: none;
 	}
 `
@@ -84,7 +84,7 @@ const MenuWrapper = styled.div`
 	padding: 20px;
 	z-index: 1;
 	width: 100%;
-	@media(max-width: 444px) { 
+	@media(max-width: 600px) { 
 		.nav {
 			justify-content: right;
 		}
@@ -119,7 +119,7 @@ const LabelWrapper = styled.div`
 	grid-gap: 16px;
 	justify-items: center;
 	align-content: center;
-	@media(max-width: 444px) {
+	@media(max-width: 600px) {
 		display: none;
 		
 	}

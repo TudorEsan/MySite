@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { NormalButton } from "../../styles/ButtonStyles";
 import { NormalInput, NormalTextField } from "../../styles/InputStyles";
-import { BodyIntro, H2 } from "../../styles/TextStyles";
-
+import { BodyIntro, H2, H3 } from "../../styles/TextStyles";
+import { theme } from "../../Api/colorScheeme";
 const Contact = () => {
+	const onSend = (e) => {
+		e.preventDefault();
+	}
+
 	return (
 		<>
 			<Wrapper>
@@ -12,7 +17,7 @@ const Contact = () => {
 						<CustomH2>Contact</CustomH2>
 						<BodyIntroMedium>
 							You can contact me through this form or by sending
-							me a whatsapp message via my email
+							me an email
 						</BodyIntroMedium>
 					</TextContainer>
 					<ContactIlustration src="/contact_ilustration.svg" />
@@ -22,9 +27,13 @@ const Contact = () => {
 				<Background />
 				<Container3>
 					<Form>
+						<CustomH3>Send a Message</CustomH3>
 						<Input placeholder="Name" />
 						<Input placeholder="Email" />
 						<TextField placeholder="Message" />
+						<Button theme={theme} onClick={onSend}>
+							Send
+						</Button>
 					</Form>
 					<Divider></Divider>
 					<div style={{ margin: "auto" }}>
@@ -43,6 +52,24 @@ const Contact = () => {
 		</>
 	);
 };
+
+const CustomH3 = styled(H3)`
+	font-size: 25px;
+	margin-bottom: 15px;
+	color: rgba(255, 255, 255, 0.9);
+	@media (max-width: 600px) {
+		font-size: 20px;
+	}
+`;
+
+const Button = styled(NormalButton)`
+	width: 80px;
+	background: linear-gradient(260.12deg, #22d2b2 54.01%, #229ad2 81.63%);
+	@media (prefers-color-scheme: dark) {
+		background: linear-gradient(260.12deg, #22d2b2 54.01%, #229ad2 81.63%);
+	}
+`;
+
 const Divider = styled.div`
     @media(max-width: 600px) {
         display: none;
@@ -57,9 +84,12 @@ const TextField = styled(NormalTextField)`
 `;
 
 const Text = styled(BodyIntro)`
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 20px;
-`
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 20px;
+	@media (max-width: 295px) {
+		font-size: 17px;
+	}
+`;
 
 const Icon = styled.img`
 	height: 44px;
@@ -94,7 +124,10 @@ const Container3 = styled.div`
 `;
 
 const Form = styled.form`
-	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Footer = styled.div`
@@ -125,6 +158,9 @@ const Container2 = styled.div`
 	height: 70vh;
 	@media (max-width: 600px) {
 		height: 90vh;
+		@media (max-height: 770px) {
+			height: 750px;
+		}
 	}
 `;
 
@@ -175,7 +211,6 @@ const TextContainer = styled.div`
 	display: grid;
 	grid-gap: 16px;
     max-width: 300px;
-    justify-items: center;
 `;
 
 const Container1 = styled.div`
