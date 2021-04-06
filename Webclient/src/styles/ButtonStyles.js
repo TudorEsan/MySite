@@ -26,6 +26,20 @@ export const NormalButton = styled.button`
 		border: none;
 		outline: none;
 	}
+	:disabled {
+		background: #a9d7ec;
+		cursor: no-drop;
+		:active {
+			transform: none;
+			box-shadow: none;
+			transform: none;
+			border: none;
+			outline: none;
+		}
+		:hover {
+			transform: none;
+		}
+	}
 	@media (prefers-color-scheme: dark) {
 		background: ${(props) => props.theme.dark.gradient1};
 	}
