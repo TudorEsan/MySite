@@ -1,7 +1,7 @@
 
 
 class Auth {
-	static #PATH = "https://tudoresan.hopto.org/auth";
+	static #PATH = "https://tudoresan.herokuapp.com/auth";
 
 	static isLogedIn() {
 		return !!window.localStorage.getItem("token");
@@ -10,12 +10,13 @@ class Auth {
 	static async updateHeaders(resp) {
 		if (resp.status === 200) {
 			const localStorage = window.localStorage;
+			console.log(resp.headers);
 			const [token, refreshToken] = resp.headers
 				.get("Authorization")
 				.split(" ");
 			localStorage.setItem("token", token);
 			localStorage.setItem("refreshToken", refreshToken);
-		} else if(resp.status === 401) {
+		} else if (resp.status === 401) {
 			localStorage.removeItem("token");
 			localStorage.removeItem("refreshToken");
 		}
@@ -35,9 +36,10 @@ class Auth {
 			},
 			body: JSON.stringify({
 				user: user,
-				password: password
-			})
+				password: password,
+			}),
 		});
+		console.log(resp.headers.get("Authorization"));
 		this.updateHeaders(resp);
 		if (resp.status !== 200) {
 			const body = await resp.json();

@@ -9,7 +9,7 @@ function MenuTooltip({ isOpen, setIsOpen, history, onDismiss }) {
         <>
             <Wrapper isOpen={isOpen}>
                 { navbarData.map((elem, index) => (
-                    <MenuItem onClick={ () => { history.push(elem.link); setIsOpen(false)}}key={index}>{elem.title} </ MenuItem>
+                    <MenuItem onClick={ () => { history.push(elem.link); setIsOpen(false)}} key={index}>{elem.title} </ MenuItem>
                 ))}
             </Wrapper>
             <Div isOpen={isOpen} onClick={onDismiss}>

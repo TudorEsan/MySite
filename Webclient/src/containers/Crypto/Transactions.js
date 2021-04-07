@@ -7,7 +7,6 @@ export const Transactions = ({ transactions }) => {
 	const twoDigits = (n) => {
 		return Math.trunc(n * 100) / 100;
     };
-    console.log(transactions)
 	return (
 		<Card theme={theme}>
 			<Heading theme={theme}>Transactions</Heading>

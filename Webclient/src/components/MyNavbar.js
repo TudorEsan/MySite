@@ -38,8 +38,8 @@ function MyNavbar({ history }) {
 			<MenuWrapper>
 				<Logo src={isDark()?'/Logo_dark.svg' : 'Logo.svg'} color={ getColor() }/>
 				<LabelWrapper items={navbarData.length}>
-					{navbarData.map(elem => (
-						<MenuLabel color={getColor()} override={ override() } underline={shouldUnderline(elem.link)} onClick={(e) => navigate(e, elem.link)}>{ elem.title }</MenuLabel>
+					{navbarData.map((elem, index) => (
+						<MenuLabel key={index} color={getColor()} override={ override() } underline={shouldUnderline(elem.link)} onClick={(e) => navigate(e, elem.link)}>{ elem.title }</MenuLabel>
 					))}
 				</LabelWrapper>
 				<StyledBurger className="nav" onClick={() => {setIsOpen(!isOpen);} }>

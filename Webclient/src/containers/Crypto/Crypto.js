@@ -88,7 +88,6 @@ class Crypto1 extends Component {
 	async componentDidMount() {
 		document.addEventListener("keydown", this.detectEsc, false);
 		let data = await getCryptoData();
-		console.log(data);
 		this.setState((prevState) => ({
 			...prevState,
 			crypto: data,
@@ -139,7 +138,6 @@ class Crypto1 extends Component {
 					<Container2>
 						<ButtonContainer>
 							<Button
-								disabled={true}
 								theme={theme}
 								onClick={() => {
 									this.openAddDialog();
@@ -148,7 +146,6 @@ class Crypto1 extends Component {
 								<ButtonLabel>Add Crypto</ButtonLabel>
 							</Button>
 							<Button
-								disabled={true}
 								theme={theme}
 								onClick={() => {
 									this.openSellDialog();
