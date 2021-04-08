@@ -1,13 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { NormalButton } from "../../styles/ButtonStyles";
 import { NormalInput, NormalTextField } from "../../styles/InputStyles";
-import { BodyIntro, H2, H3 } from "../../styles/TextStyles";
+import { BodyIntro, ErrorMessage, H2, H3 } from "../../styles/TextStyles";
 import { theme } from "../../Api/colorScheeme";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import MessageLogic from "../../Api/Messages";
+import emailjs from 'emailjs-com'
+
+const schema = yup.object().shape({
+	name: yup.string().required(),
+	recieverEmail: yup.string().email().required(),
+	message: yup.string().required(),
+});
+
 const Contact = () => {
-	const onSend = (e) => {
-		e.preventDefault();
-	}
+	const { register, handleSubmit, errors, reset } = useForm({
+		resolver: yupResolver(schema),
+		mode: "onBlur",
+	});
+	const [error, setError] = useState("");
+	const onSend = async (data, e) => {
+		console.log(data)
+		const resp = await emailjs.send("service_2hogqhq", "template_223rjog", data);
+		console.log(resp);
+		reset();
+	};
 
 	return (
 		<>
@@ -26,12 +46,28 @@ const Contact = () => {
 			<Container2>
 				<Background />
 				<Container3>
-					<Form>
+					<Form onSubmit={handleSubmit(onSend)}>
 						<CustomH3>Send a Message</CustomH3>
-						<Input placeholder="Name" />
-						<Input placeholder="Email" />
-						<TextField placeholder="Message" />
-						<Button theme={theme} onClick={onSend}>
+						<Input
+							placeholder="Name"
+							name="name"
+							ref={register}
+							error={errors.name}
+						/>
+						<Input
+							placeholder="Email"
+							name="recieverEmail"
+							ref={register}
+							error={errors.recieverEmail}
+						/>
+						<TextField
+							placeholder="Message"
+							name="message"
+							ref={register}
+							error={errors.message}
+						/>
+						{error && <ErrorMessage>{error}</ErrorMessage>}
+						<Button type="submit" theme={theme}>
 							Send
 						</Button>
 					</Form>
@@ -71,16 +107,16 @@ const Button = styled(NormalButton)`
 `;
 
 const Divider = styled.div`
-    @media(max-width: 600px) {
-        display: none;
-    }
-`
+	@media (max-width: 600px) {
+		display: none;
+	}
+`;
 
 const Input = styled(NormalInput)`
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 `;
 const TextField = styled(NormalTextField)`
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 `;
 
 const Text = styled(BodyIntro)`
@@ -100,13 +136,13 @@ const Icon = styled.img`
 `;
 
 const AlternativeContactWrapper = styled.div`
-    display: grid;
-    grid-template-rows: auto auto auto;
-    grid-template-columns: auto auto;
-    grid-gap: 15px;
-    justify-content: center;
-    align-items: center;
-`
+	display: grid;
+	grid-template-rows: auto auto auto;
+	grid-template-columns: auto auto;
+	grid-gap: 15px;
+	justify-content: center;
+	align-items: center;
+`;
 
 const Container3 = styled.div`
 	padding: 20px;
@@ -131,9 +167,9 @@ const Form = styled.form`
 `;
 
 const Footer = styled.div`
-    height: 50px;
-`
-            
+	height: 50px;
+`;
+
 const Background = styled.img`
 	position: absolute;
 	content: url("/contactBackgroundBulb.svg");
@@ -166,8 +202,8 @@ const Container2 = styled.div`
 
 const ContactIlustration = styled.img`
 	width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+	max-width: 600px;
+	margin: 0 auto;
 `;
 
 const CustomH2 = styled(H2)`
@@ -210,7 +246,7 @@ const Wrapper = styled.div`
 const TextContainer = styled.div`
 	display: grid;
 	grid-gap: 16px;
-    max-width: 300px;
+	max-width: 300px;
 `;
 
 const Container1 = styled.div`
@@ -222,7 +258,7 @@ const Container1 = styled.div`
 	align-items: center;
 
 	@media (max-width: 620px) {
-        grid-gap: 15px;
+		grid-gap: 15px;
 	}
 	@media (max-width: 450px) {
 		margin-top: 40px;

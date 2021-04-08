@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { theme } from '../../Api/colorScheeme'
 import { Dialog } from '../../components/Dialog'
@@ -8,13 +8,13 @@ import { ErrorMessage, H2, H3 } from '../../styles/TextStyles'
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addCrypto, sellCrypto } from '../../Api/Crypto'
+import { sellCrypto } from '../../Api/Crypto'
 
 const schema = yup.object().shape({
     type: yup.string().required(),
     amount: yup.number().required(),
     price: yup.number().required(),
-    date: yup.string().matches(/^\s*(3[01]|[12][0-9]|0?[1-9])\-(1[012]|0?[1-9])\-((?:19|20)\d{2})\s*$/g).required()
+    date: yup.string().matches(/^\s*(3[01]|[12][0-9]|0?[1-9])-(1[012]|0?[1-9])-((?:19|20)\d{2})\s*$/g).required()
 });
 export const SellCrypto = ({ isOpen, setState }) => {
     const [requestError, setRequestError] = useState("");
@@ -104,24 +104,6 @@ const Button = styled(NormalButton)`
     color: rgba(255,255,255, 0.8);
 `
 
-const DialogButtonLabel = styled.button`
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 140%;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-    width: 250px;
-
-`
 const DialogButtonLabel2 = styled.p`
     font-style: normal;
     font-weight: normal;
