@@ -1,5 +1,3 @@
-
-
 class Auth {
 	static #PATH = "https://tudoresan.herokuapp.com/auth";
 
@@ -45,6 +43,7 @@ class Auth {
 			const body = await resp.json();
 			return body.message;
 		}
+		window.localStorage.setItem("user", user);
 		return;
 	}
 }

@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import Sw from "./serviceWorkerRegistration";
 import emailjs from 'emailjs-com'
 
 emailjs.init("user_AMGJ2p5N2MwxeqeXtJNLW");
+new Sw().init();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,4 +15,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-serviceWorkerRegistration.register();
+

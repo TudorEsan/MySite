@@ -159,6 +159,7 @@ class Crypto1 extends Component {
 					<Transactions
 						transactions={this.getTransactions(this.state.crypto)}
 					/>
+					<Footer></Footer>
 				</>
 			);
 		} else {
@@ -168,6 +169,10 @@ class Crypto1 extends Component {
 }
 
 export default Crypto1;
+
+const Footer = styled.div`
+	height: 1px;
+`
 
 const ButtonContainer = styled.div`
 	display: grid;

@@ -14,32 +14,38 @@ export const getCryptoData = async () => {
 
 export const addCrypto = async (data) => {
   const resp = await fetch(path, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      "Authorization": Auth.getAuthorizationHeader()
-    },
-    body: JSON.stringify({
-      ...data,
-      user: "Tudor"
-    })
-  })
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: Auth.getAuthorizationHeader(),
+		},
+		body: JSON.stringify({
+			usd: data.usd,
+			abbreviation: data.type,
+			amount: data.amount,
+			date: data.date,
+			user: window.localStorage.getItem("user"),
+		}),
+  });
   Auth.updateHeaders(resp);
   return resp;
 }
 
 export const sellCrypto = async (data) => {
   const resp = await fetch(path + "/sell", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': Auth.getAuthorizationHeader()
-    },
-    body: JSON.stringify({
-      ...data,
-      user: "Tudor"
-    })
-  })
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: Auth.getAuthorizationHeader(),
+		},
+		body: JSON.stringify({
+      usd: data.usd,
+      abbreviation: data.type,
+      amount: data.amount,
+      date: data.date,
+			user: window.localStorage.getItem("user"),
+		}),
+  });
   Auth.updateHeaders(resp);
   return resp;
 }
