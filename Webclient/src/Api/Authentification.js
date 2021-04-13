@@ -6,17 +6,17 @@ class Auth {
 	}
 
 	static async updateHeaders(resp) {
-		if (resp.status === 200) {
+		if (resp.status === 401) {
+			localStorage.removeItem("token");
+			localStorage.removeItem("refreshToken");
+		} else {
+			console.log(resp.headers.get("Authorization"));
 			const localStorage = window.localStorage;
-			console.log(resp.headers);
 			const [token, refreshToken] = resp.headers
 				.get("Authorization")
 				.split(" ");
 			localStorage.setItem("token", token);
 			localStorage.setItem("refreshToken", refreshToken);
-		} else if (resp.status === 401) {
-			localStorage.removeItem("token");
-			localStorage.removeItem("refreshToken");
 		}
 	}
 

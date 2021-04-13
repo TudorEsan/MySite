@@ -9,6 +9,10 @@ function MyNavbar({ history }) {
 	
 	const [isOpen, setIsOpen] = useState(false);
 
+	const onDismiss = () => {
+		setIsOpen(false);
+	}
+
 	const shouldUnderline = (link) => {
 		const { pathname } = history.location
 		return link === pathname;
@@ -30,7 +34,7 @@ function MyNavbar({ history }) {
 	}
 	const override = () => {
 		const { pathname } = history.location;
-		return pathname == '/'
+		return pathname === '/'
 	}
 
 	return (
@@ -47,7 +51,7 @@ function MyNavbar({ history }) {
 					<Line color={ getColor() } override={ override() }/>
 				</StyledBurger>
 			</MenuWrapper> 
-			<MenuTooltip isOpen={isOpen} setIsOpen={setIsOpen}/>
+			<MenuTooltip isOpen={isOpen} onDismiss={onDismiss} setIsOpen={setIsOpen}/>
 		</>
 	)
 }

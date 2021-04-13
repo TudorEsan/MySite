@@ -3,15 +3,17 @@ import styled from "styled-components";
 import { BodyIntro, H2 } from "../../styles/TextStyles";
 import { getCryptoData } from "../../Api/Crypto";
 import { theme } from "../../Api/colorScheeme";
-import LoadingCrypto from "./CryptoLoading";
-import { AddCryptoDialog } from "./AddCryptoDialog";
+import LoadingCrypto from "../../components/Crypto/CryptoLoading";
+import { AddCryptoDialog } from "../../components/Crypto/AddCryptoDialog";
 import { Component } from "react";
-import { SellCrypto } from "./SellCrypto";
+import { SellCrypto } from "../../components/Crypto/SellCrypto";
 import { Login } from "../../components/Login";
 import Auth from "../../Api/Authentification";
 import { NormalButton } from "../../styles/ButtonStyles";
-import { Overiview } from "./Overiview";
-import { Transactions } from "./Transactions";
+import { Overiview } from "../../components/Crypto/Overiview";
+import { Transactions } from "../../components/Crypto/Transactions";
+import { LoadingOverview } from "../../components/Crypto/LoadingOverview";
+import { LoadingTransactions } from "../../components/Crypto/LoadingTransactions";
 
 class Crypto1 extends Component {
 	constructor(props) {
@@ -155,10 +157,22 @@ class Crypto1 extends Component {
 							</Button>
 						</ButtonContainer>
 					</Container2>
-					<Overiview statistics={this.state.crypto} />
-					<Transactions
-						transactions={this.getTransactions(this.state.crypto)}
-					/>
+					{this.state.crypto && (
+						<>
+							<Overiview statistics={this.state.crypto} />
+							<Transactions
+								transactions={this.getTransactions(
+									this.state.crypto
+								)}
+							/>
+						</>
+					)}
+					{!!this.state.crypto && (
+						<>
+							<LoadingCrypto />
+							<LoadingTransactions />
+						</>
+					)}
 					<Footer></Footer>
 				</>
 			);
@@ -172,7 +186,7 @@ export default Crypto1;
 
 const Footer = styled.div`
 	height: 1px;
-`
+`;
 
 const ButtonContainer = styled.div`
 	display: grid;

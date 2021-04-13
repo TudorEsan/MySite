@@ -27,6 +27,7 @@ export const addCrypto = async (data) => {
 			user: window.localStorage.getItem("user"),
 		}),
   });
+	console.log(resp);
   Auth.updateHeaders(resp);
   return resp;
 }

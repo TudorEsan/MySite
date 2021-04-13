@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { theme } from '../../Api/colorScheeme'
-import { Dialog } from '../../components/Dialog'
+import { Dialog } from '../Dialog'
 import { NormalButton } from '../../styles/ButtonStyles'
 import { NormalInput } from '../../styles/InputStyles'
 import { ErrorMessage, H2, H3 } from '../../styles/TextStyles'

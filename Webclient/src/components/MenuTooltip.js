@@ -24,7 +24,7 @@ export default withRouter(MenuTooltip)
 const Div = styled.div`
     position: absolute;
     visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
-    z-index: -999;
+    z-index: 500;
     top: 0;
     bottom: 0;
     left: 0;

@@ -80,7 +80,7 @@ const Icon = styled.div`
     filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.25));
     background: #18204D;
     border-radius: 50%;
-    @media(max-width: 444px) { 
+    @media(max-width: 778px) { 
         width: 50px;
         height: 50px;
     }
@@ -99,7 +99,7 @@ const ComputerWork = styled.img`
 const TextContainer = styled.div`
     width: 721px;
     padding-left: 150px;
-    @media(max-width: 444px) {
+    @media(max-width: 778px) {
         margin: 0 auto;
         padding: 0;
     }
@@ -107,53 +107,63 @@ const TextContainer = styled.div`
 
 
 const RectContainer = styled.div`
-    width: 50%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+	width: 50%;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	@media (max-width: 775px) {
+		margin-top: 100px;
+	}
 
-    :before {
-        content: "";
-        width: 721px;
-        height: 663px;
-        position: absolute;
-        background: linear-gradient(180deg, #2242D2 43.75%, #5A22D2 65.62%);
-        left: -100px;
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-        border-radius: 90px;
-        transform: rotate(-40deg);
-        z-index: -2;
-        @media(max-width: 444px) {
-            width: 444px;
-            height: 444px;
-        }
-    }
-    :after {
-        left: -100px;
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
-        content: "";
-        width: 721px;
-        height: 663px;
-        position: absolute;
-        background: linear-gradient(317.89deg, #229AD2 5.14%, #22D2B2 88.9%);
-        border-radius: 90px;
-        transform: rotate(-20deg);
-        z-index: -1;
-        @media(max-width: 444px) {
-            width: 444px;
-            height: 444px;
-        }
-    }
-`   
+	:before {
+		content: "";
+		width: 721px;
+		height: 663px;
+		position: absolute;
+		background: linear-gradient(180deg, #2242d2 43.75%, #5a22d2 65.62%);
+		left: -100px;
+		box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+		border-radius: 90px;
+		transform: rotate(-40deg);
+		z-index: -2;
+		@media (max-width: 740px) {
+			width: 600px;
+			height: 600px;
+		}
+		@media (max-width: 778px) {
+			width: 420px;
+			height: 420px;
+		}
+	}
+	:after {
+		left: -100px;
+		box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+		content: "";
+		width: 721px;
+		height: 663px;
+		position: absolute;
+		background: linear-gradient(317.89deg, #229ad2 5.14%, #22d2b2 88.9%);
+		border-radius: 90px;
+		transform: rotate(-20deg);
+		z-index: -1;
+		@media (max-width: 740px) {
+			width: 600px;
+			height: 600px;
+		}
+		@media (max-width: 778px) {
+			width: 420px;
+			height: 420px;
+		}
+	}
+`;   
 const RectContainer2 = styled.div`
     width: 50%;
     display: grid;
     grid-auto-flow: column;
     grid-gap: 15px;
-    @media(max-width: 444px) {
-        margin-top: 20px;
+    @media(max-width: 778px) {
+        margin-top: 40px;
         width: 100px;
         justify-content: center;
         
@@ -161,36 +171,47 @@ const RectContainer2 = styled.div`
 `
 
 const Container = styled.div`
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url('/Vector.svg') top center no-repeat;
-    background-size: cover;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: url("/Vector.svg") top center no-repeat;
+	background-size: cover;
 
-    @media(max-width: 920px) {
-        flex-direction: column;
-        height: 80vh;
-    }
-    @media (prefers-color-scheme: dark) {
-        background: url('/Vector1_dark.svg') top center no-repeat;
-        background-size: cover;
-    }
-`
+	@media (max-height: 750px) {
+		flex-direction: column;
+		height: 100vh;
+	}
+	@media (max-width: 920px) {
+		flex-direction: column;
+		height: 80vh;
+	}
+	@media (max-height: 890px) {
+		flex-direction: column;
+		height: 90vh;
+	}
+	@media (prefers-color-scheme: dark) {
+		background: url("/Vector1_dark.svg") top center no-repeat;
+		background-size: cover;
+	}
+`;
 
 const Container2 = styled.div`
-    height: 80vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 100;
-    @media(max-width: 444px) {
-        overflow: hidden;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-`
+	height: 80vh;
+	display: flex;
+	align-items: center;
+	position: relative;
+	z-index: 100;
+	@media (max-width: 778px) {
+		overflow: hidden;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	@media (min-width: 778px) {
+        margin-top: 100px;
+	}
+`;
 
 const Title = styled(H1)`
     margin-top: 40px;
@@ -208,14 +229,14 @@ const Title = styled(H1)`
 const CustomH2 = styled(H2)`
     //transform: rotate(+20deg);
     height: 100%;
-    @media(max-width: 444px) {
+    @media(max-width: 778px) {
         text-align: center;
     }
 `
 const BodyIntroMedium = styled(BodyIntro)`
     //transform: rotate(+20deg);
     width: 285px;
-    @media(max-width:444px) {
+    @media(max-width:778px) {
         margin-top: 15px;
         font-size: 15px;
         line-height: 130%;
@@ -268,6 +289,9 @@ const ContentWrapper = styled.div`
     padding: 200px 30px;
     @media(max-width: 444px) {
         height: 80vh;
+    }
+    @media(min-height: 100px) {
+        height: 60vh;
     }
 `
 
