@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { theme } from "../../Api/colorScheeme";
+import { SimpleButton } from "../../styles/ButtonStyles";
 import { BodyIntro, BodyMain, H3, MediumText } from "../../styles/TextStyles";
 
 export const Overiview = ({ statistics }) => {
@@ -15,9 +16,13 @@ export const Overiview = ({ statistics }) => {
 				{twoDigits(statistics.actualAmount)} USD
 			</Amount>
 			<Percentage theme={theme} percentage={statistics.growth}>
-				USD {twoDigits(statistics.growth)}%
+				{ twoDigits(statistics.usdGrowth)} USD {twoDigits(statistics.growth)}%
 			</Percentage>
-
+			<BallanceContainer>
+				{statistics.ballance && (
+					<Heading2 theme={theme}>Ballance: {twoDigits(statistics.ballance)}$</Heading2>
+				)}
+			</BallanceContainer>
 			{statistics.coins.map((coin, index) => (
 				<CryptoContainer key={index}>
 					<CryptoImg src={coin.icon} />
@@ -35,6 +40,47 @@ export const Overiview = ({ statistics }) => {
 		</Card>
 	);
 };
+
+const AddBallance = styled(SimpleButton)`
+	position: relative;
+	height: 35px;
+	width: 35px;
+	background: #6bef70;
+
+	:after {
+		content: "";
+		position: absolute;
+		display: inline-block;
+		height: 20px;
+		width: 5px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: #fff;
+		z-index: 1000;
+		border-radius: 3px;
+	}
+	:before {
+		content: "";
+		position: absolute;
+		display: inline-block;
+		height: 5px;
+		width: 20px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: #fff;
+		z-index: 1000;
+		border-radius: 3px;
+	}
+`;
+
+const WithdrawButton = styled(SimpleButton)`
+`
+
+const BallanceContainer = styled.div`
+	margin: 20px 0 20px;
+`
 
 const Card = styled.div`
 	background: #f2f6ff;
@@ -60,6 +106,12 @@ const Heading = styled(H3)`
 	@media (prefers-color-scheme: dark) {
 		color: ${(props) => props.theme.dark.primaryTextColor};
 	}
+`;
+
+const Heading2 = styled(Heading)`
+	font-size: 24px;
+	text-align: center;
+	font-weight: 400;
 `;
 
 const CryptoContainer = styled.div`

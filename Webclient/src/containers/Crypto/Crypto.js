@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BodyIntro, H2 } from "../../styles/TextStyles";
+import { BodyIntro, H2, H3 } from "../../styles/TextStyles";
 import { getCryptoData } from "../../Api/Crypto";
 import { theme } from "../../Api/colorScheeme";
 import LoadingCrypto from "../../components/Crypto/CryptoLoading";
@@ -183,6 +183,22 @@ class Crypto1 extends Component {
 }
 
 export default Crypto1;
+
+const Heading = styled(H3)`
+	text-align: center;
+	@media (prefers-color-scheme: dark) {
+		color: ${(props) => props.theme.dark.primaryTextColor};
+	}
+`;
+const Container3 = styled.div`
+	display: grid;
+	grid-auto-flow: row;
+	width: auto;
+	margin-top: 50px;
+	@media (max-width: 444px) {
+		margin: 0;
+	}
+`;
 
 const Footer = styled.div`
 	height: 1px;
