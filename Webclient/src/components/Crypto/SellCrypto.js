@@ -43,7 +43,7 @@ export const SellCrypto = ({ isOpen, setState }) => {
     }
     return (
 		<Dialog isOpen={isOpen} onDismiss={cancel}>
-			<DialogTitle>Add Crypto</DialogTitle>
+			<DialogTitle>Sell Crypto</DialogTitle>
 			<form id="cryptoForm" onSubmit={handleSubmit(submitCrypto)}>
 				<DialogContainer>
 					<DialogLabel>Type</DialogLabel>

@@ -40,10 +40,10 @@ export const sellCrypto = async (data) => {
 			Authorization: Auth.getAuthorizationHeader(),
 		},
 		body: JSON.stringify({
-      usd: data.usd,
-      abbreviation: data.type,
-      amount: data.amount,
-      date: data.date,
+		price: data.price,
+		abbreviation: data.type,
+		amount: data.amount,
+		date: data.date,
 			user: window.localStorage.getItem("user"),
 		}),
   });
