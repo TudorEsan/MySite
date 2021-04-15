@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { NormalButton } from "../../styles/ButtonStyles";
 import { NormalInput, NormalTextField } from "../../styles/InputStyles";
 import { BodyIntro, ErrorMessage, H2, H3 } from "../../styles/TextStyles";
@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import MessageLogic from "../../Api/Messages";
 import emailjs from 'emailjs-com'
+import { ReactComponent as ContactLogo } from "./contact_ilustration.svg";
 
 const schema = yup.object().shape({
 	name: yup.string().required(),
@@ -40,7 +41,7 @@ const Contact = () => {
 							me an email
 						</BodyIntroMedium>
 					</TextContainer>
-					<ContactIlustration src="/contact_ilustration.svg" />
+					<ContactIlustration />
 				</Container1>
 			</Wrapper>
 			<Container2>
@@ -88,6 +89,9 @@ const Contact = () => {
 		</>
 	);
 };
+
+
+
 
 const CustomH3 = styled(H3)`
 	font-size: 25px;
@@ -200,10 +204,29 @@ const Container2 = styled.div`
 	}
 `;
 
-const ContactIlustration = styled.img`
+const cloudAnimation = keyframes`
+	from { transform: translateX(-80%); opacity: 100%; }
+	to { transform: translateX(70%); opacity: 50%; }
+`;
+
+const ContactIlustration = styled(ContactLogo)`
+	position: relative;
 	width: 100%;
-	max-width: 600px;
+	max-width: 540px;
 	margin: 0 auto;
+	overflow: visible;
+	#Cloud4 {
+		animation: ${cloudAnimation} 25s linear infinite;
+	}
+	#Cloud3 {
+		animation: ${cloudAnimation} 20s linear infinite;
+	}
+	#Cloud2 {
+		animation: ${cloudAnimation} 15s linear infinite;
+	}
+	#Cloud1 {
+		animation: ${cloudAnimation} 17s linear infinite;
+	}
 `;
 
 const CustomH2 = styled(H2)`
